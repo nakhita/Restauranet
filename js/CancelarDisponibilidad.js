@@ -173,19 +173,6 @@ $(function() {
     return Math.floor(hora/100)*60 + hora%100;
   };
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   principal();
 });
