@@ -1,0 +1,170 @@
+
+
+.bg {
+    
+  
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+
+}
+
+nav {
+    background-color: #f8f9fa;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+}
+
+
+.contenedor{
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background: url("../img/fondo.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+nav #menu a {
+    color: #CACACA;
+    text-decoration: none;
+    background-color: #818181;
+    display:block;
+    margin: 1px 2px;
+    
+}
+
+.boton{
+    text-decoration: none;
+    background-color: burlywood;
+    margin: 1px 2px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 40%;
+}
+.boton:hover{
+    background: rgba(0,0,0,0.3);
+    color:burlywood;
+    text-decoration: none;
+}
+
+nav #menu a:hover{
+    background: rgba(0,0,0,0.9);
+    color: #000 ;
+    text-decoration: none;
+    
+}
+
+nav .icon-menu {
+    background-color: transparent;
+    border: none !important;
+    display: none;
+}
+
+nav .menu_completo{
+    align-content: right;
+    display: block;
+    list-style: none;
+    justify-content: flex-end;
+    
+}
+
+a.icon-borrar:hover{
+    color: #000;
+    text-decoration: none;
+    padding-top: 18px;
+    
+}
+
+.container{
+    margin-top: 200px;
+    padding: 50px;
+    background-color: #909090;
+    align-content: center;
+    background: url("../img/fondo_datos.png");
+    opacity: 0.9;
+}
+.container-dentro{
+    background-color: #FFFF;
+    padding: 10px;
+    font-family: sans-serif;
+    font-weight: 700;
+    
+    
+}
+.titulitos{
+    color:darkgoldenrod;
+}
+.agregar{
+    color:burlywood;
+}
+.navbar{
+    display: block!important;
+}
+
+nav #titulo {
+    font-family: BirdsofParadise;
+    font-size: 300%;
+    
+}
+nav #titulo:hover {
+    color: #000 ;
+    font-family: BirdsofParadise;
+    
+}
+nav #menu-contenedor{
+    padding-top: 25px;
+    text-align: right;
+    display: block;
+}
+
+nav #menu-titulo{
+    padding-left: 3%;
+    padding-right: 0;
+}
+
+@media (max-width:892){
+    nav #menu-contenedor{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    nav .icon-menu{
+        padding-top: 25px;
+        display: block !important;
+        text-align: right;
+        font-size: 200%;
+    }
+    nav #menu-contenedor{
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        display: none;
+    }
+    
+    nav .icon-menu ul{
+        position: block;
+        top: 90px !important;
+        left: 0%;
+        font-size: 200%;
+    } 
+    .boton{
+        margin-left: 5%;
+        margin-right: 5%;
+        align-content: center;
+    }
+}
+
+
+@media (max-width: 328px) {
+    #titulo{
+        font-size: 250%;
+    }
+}
