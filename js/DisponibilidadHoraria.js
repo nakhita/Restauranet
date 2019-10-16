@@ -1,5 +1,6 @@
+
 $(function() {
-  
+  var id_res =1;
   var m_horario = {
     dias: [
       {
@@ -57,6 +58,10 @@ $(function() {
   var inicializarVariables = function() {
     $('[data-toggle="tooltip"]').tooltip({
       container : 'body'
+    });
+    $('.alert').on('close.bs.alert', function (e) {
+      e.preventDefault();
+      $(this).hide();
     });
   };
 
@@ -188,23 +193,38 @@ $(function() {
           var picker = $(e.target.closest('.timepicker')).pickatime('picker');
           var horaHasta = picker.get('select').hour * 100 + picker.get('select').mins;
           elem.rango.hasta = horaHasta;
+        },
+        guardar : function(e, elem) {
+          console.log(m_horario);
+          var horario = {};
+          horario.dias = m_horario.dias.filter(function(el) {
+            return el.seleccionado;
+          });
+          horario.prom = {
+            tiempo: $("#tiempo_prom").val(),
+            mesas: $("#mesas_prom").val()
+          }
+          horario.idRes= id_res;
+          
+          console.log(horario);
+        var data = JSON.stringify(horario);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            if(this.responseText=='ok'){
+                $('.alert').show();
+            }
+          }
+        };
+        xmlhttp.open("POST", "php/funciones.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("data=" + data);
+            
+          
         }
       }
     });
   };
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   principal();
 });

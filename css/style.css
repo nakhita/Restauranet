@@ -68,10 +68,10 @@ nav .menu_completo{
     
 }
 
+
 a.icon-borrar:hover{
     color: #000;
     text-decoration: none;
-    padding-top: 18px;
     
 }
 
@@ -132,6 +132,10 @@ nav #menu-titulo{
     background-color:#C3BF71;
 }
 
+.dia-seleccionado{
+    padding-bottom: 1%;
+}
+
 #cancelar-disponibilidad{
     font-family: sans-serif;
     font-weight: 700;
@@ -143,12 +147,19 @@ nav #menu-titulo{
     background-color:#FCFBE3;
 }
 
-@media (max-width:892){
+@media(max-width:1116px){
+    a.icon-borrar{
+        margin-top: 20px;
+        
+    }
+}
+/*
+@media (max-width:892px){
     nav #menu-contenedor{
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
-}
+}*/
 
 @media (max-width: 768px) {
     nav .icon-menu{
@@ -180,8 +191,16 @@ nav #menu-titulo{
         margin-left: 0%;
         margin-right: 0%;
     }
+    
+   
+    
 }
-
+@media(max-width:541px){
+      a.icon-borrar{
+        margin-top: 30px;
+        
+    }
+}
 
 @media (max-width: 328px) {
     #titulo{

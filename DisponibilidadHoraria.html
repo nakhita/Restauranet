@@ -41,84 +41,88 @@
         </nav>   
   <form id="disponibilidad-horaria" class="containers">
    <div class="container-dentro">
-    <div class=" row">
-      <div class="col-sm-12">
-        <h1 class="titulitos w-auto">Disponibilidad Horaria</h1>
-        <br>
+       <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        El horario se guardo exitosamente!
       </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Horario</label>
-      <div class="col-sm-10 horario-contenedor">
-        <div rv-each-dia="horario.dias">
-          <input rv-checked="dia.seleccionado" rv-on-click="eventos.seleccionaDia" rv-id="dia.nombre | formatoId 'ch'" type="checkbox" class="form-input">
-          <label rv-for="dia.nombre | formatoId 'ch'">{dia.nombre}</label>
-        </div>
-      </div>
-    </div>
-    <div rv-show="dia.seleccionado" rv-each-dia="horario.dias" class="form-group row">
-      <label for="" class="col-sm-2 col-form-label">{dia.nombre}</label>
-      <div class="col-sm-10">
-        <div rv-id="rango.id | formatoId dia.nombre" class="row" rv-each-rango="dia.rangos">
-          <div class="col-4 form-inline" rv-id="rango | formatoRangoId 'contenedor-desde'">
-            <label class="control-label">Desde</label>
-            <input rv-id="rango | formatoRangoId 'rango'" rv-on-change="eventos.actualizarDesde" type="text" class="form-control timepicker desde">
-          </div>
-          <div class="col-4 form-inline" rv-id="rango | formatoRangoId 'contenedor-hasta'">
-            <label class="">Hasta</label>
-            <input rv-on-change="eventos.actualizarHasta" type="text" class="form-control timepicker hasta">
-          </div>
-          <div rv-show="dia.rangos | listaMayorA 1" class=" col-4 form-inline">
-            <a href="#" class="icon-borrar" rv-on-click="eventos.borrarRango">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
+        <div class=" row">
+          <div class="col-sm-12">
+            <h1 class="titulitos w-auto">Disponibilidad Horaria</h1>
+            <br>
           </div>
         </div>
-      </div>
-      <div rv-show="dia.rangos | listaMenorA 2" class="col-sm-12">
-        <a href="#" class="agregar" rv-on-click="eventos.agregarRango">+Agregar</a>
-      </div>
-      <div class="col-sm-12">
-        <hr>
-      </div>
-    </div>
-    
-    <fieldset class="border p-3">
-      <legend class="titulitos w-auto">Promedio reserva 
-      <a href="#" data-toggle="tooltip" data-placement="top" title="Cuantas personas en promedio en un determinado tiempo"><i class="fas fa-exclamation-circle"></i></a></legend>
-      
-      <div class="row">
-        <div class="col-sm-2">
-          <label>Tiempo</label>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Horario</label>
+          <div class="col-sm-10 horario-contenedor">
+            <div rv-each-dia="horario.dias">
+              <input rv-checked="dia.seleccionado" rv-on-click="eventos.seleccionaDia" rv-id="dia.nombre | formatoId 'ch'" type="checkbox" class="form-input">
+              <label rv-for="dia.nombre | formatoId 'ch'">{dia.nombre}</label>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-10">
-          <select name="select">
-            <option value="1" selected>1</option> 
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          Horas
+        <div rv-show="dia.seleccionado" rv-each-dia="horario.dias" class=" form-group row">
+          <label for="" class="col-sm-2 col-form-label">{dia.nombre}</label>
+          <div class="col-sm-10">
+            <div rv-id="rango.id | formatoId dia.nombre" class="row dia-seleccionado" rv-each-rango="dia.rangos">
+              <div class="col-4 form-inline" rv-id="rango | formatoRangoId 'contenedor-desde'">
+                <label class="control-label">Desde</label>
+                <input rv-id="rango | formatoRangoId 'rango'" rv-on-change="eventos.actualizarDesde" type="text" class="form-control timepicker desde">
+              </div>
+              <div class="col-4 form-inline" rv-id="rango | formatoRangoId 'contenedor-hasta'">
+                <label class="">Hasta</label>
+                <input rv-on-change="eventos.actualizarHasta" type="text" class="form-control timepicker hasta">
+              </div>
+              <div rv-show="dia.rangos | listaMayorA 1" class=" col-4 form-inline">
+                <a href="#" class="icon-borrar" rv-on-click="eventos.borrarRango">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div rv-show="dia.rangos | listaMenorA 3" class="col-sm-12">
+            <a href="#" class="agregar" rv-on-click="eventos.agregarRango">+Agregar</a>
+          </div>
+          <div class="col-sm-12">
+            <hr>
+          </div>
         </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-sm-2">
-          <label>Mesas</label>
+
+        <fieldset class="border p-3">
+          <legend class="titulitos w-auto">Promedio reserva 
+          <a href="#" data-toggle="tooltip" data-placement="top" title="Cuantas personas en promedio en un determinado tiempo"><i class="fas fa-exclamation-circle"></i></a></legend>
+
+          <div class="row">
+            <div class="col-sm-2">
+              <label>Tiempo</label>
+            </div>
+            <div class="col-sm-10">
+              <select id="tiempo_prom" name="select">
+                <option value="1" selected>1</option> 
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              Horas
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-2">
+              <label>Mesas</label>
+            </div>
+            <div class="col-sm-10">
+              <input type="text" id="mesas_prom" style="width:100px;">
+            </div>
+          </div>
+
+        </fieldset>
+        <div class="form-group row">
+          <div class="boton col-md-3 col-sm-11">
+            <button rv-on-click="eventos.guardar" type="button" class=" btn">Guardar</button>
+          </div>
         </div>
-        <div class="col-sm-10">
-          <input type="text" style="width:100px;">
-        </div>
-      </div>
-      
-    </fieldset>
-    <div class="form-group row">
-      <div class="boton col-md-3 col-sm-11">
-        <button type="button" class=" btn">Guardar</button>
-      </div>
-    </div>
-   </div> 
+       </div> 
   </form>
     </div>
     <script src="js/popper.min.js" crossorigin="anonymous"></script>
