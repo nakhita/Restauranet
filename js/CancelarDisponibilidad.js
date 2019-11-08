@@ -1,7 +1,7 @@
 $(function() {
   
   var datepicker;
-  
+  var id_res=1;
   var m_diasCerrados = [];
 
   var m_diaACerrar = {
@@ -31,6 +31,10 @@ $(function() {
     var date = new Date();
     datepicker = $('.datepicker').pickadate('picker');
     datepicker.set('select', date);
+    $('.alert').on('close.bs.alert', function (e) {
+      e.preventDefault();
+      $(this).hide();
+    });
   };
 
   var agregarNuevoRango = function(e, elem) {
@@ -146,9 +150,34 @@ $(function() {
           elem.rango.hasta = horaHasta;
         },
         guardar : function(e, elem) {
+            
           m_diaACerrar.fecha = $("#fecha").val();
-          m_diasCerrados.push($.extend(true, {}, m_diaACerrar));
-          $('#modal-agregar-dia-cerrado').modal('hide')
+ m_diaACerrar.fechaFormateada=datepicker.get('select', 'yyyy-mm-dd');
+           //m_diaACerrar.fecha = "31-12-2019";
+          
+
+            //para tener solo el cargado m_diaACerrar
+            m_diaACerrar.id_res=id_res;
+            var data = JSON.stringify(m_diaACerrar);
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                if(this.responseText>0){
+                    $('#modal-agregar-dia-cerrado').modal('hide'); 
+                 m_diaACerrar.id= this.responseText;
+                  m_diasCerrados.push($.extend(true, {}, m_diaACerrar));
+                    $('.alertExito').show();
+                }
+                else{
+                  $('.alertError').show();
+                }
+              }
+            };
+            console.log(data);
+            xmlhttp.open("POST", "php/cancelar_disponibilidad.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("data=" + data);
+            
         },
         cerrarTodoElDia : function(e, elem) {
           if(elem.diaACerrar.cerrarTodoElDia == "0") {
@@ -160,10 +189,22 @@ $(function() {
         },
         borrarDiaCerrado : function(e, elem) {
           var ix = elem.diasCerrados.indexOf(elem.diacerrado);
-          m_vista.unbind();
-          elem.diasCerrados.splice(ix,1);
-          m_vista.bind();
-          
+          var id=elem.diacerrado.id;
+          var data = JSON.stringify(elem.diacerrado);
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                if(this.responseText=='ok'){
+                    m_vista.unbind(); elem.diasCerrados.splice(ix,1);
+                    m_vista.bind();
+                }
+              }
+            };
+            console.log(data);
+            xmlhttp.open("POST", "php/cancelar_disponibilidad_borrar.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("data=" + data);
+          //para tener todos m_diasCerrados
         }
       }
     });

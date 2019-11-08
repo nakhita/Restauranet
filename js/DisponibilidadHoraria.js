@@ -216,11 +216,9 @@ $(function() {
             }
           }
         };
-        xmlhttp.open("POST", "php/funciones.php", true);
+        xmlhttp.open("POST", "php/disponibilidad_horaria.php", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("data=" + data);
-            
-          
         }
       }
     });

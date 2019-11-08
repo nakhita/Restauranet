@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,user-scalabre=no, initial-scale=1, maximum-scale=1,minium-scale=1">
-    <title>Disponibilidad Horaria</title>
+    <title>Cancelar Disponibilidad</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="lib/themes/default.date.css">
     <link rel="stylesheet" href="lib/themes/default.time.css">
 </head>
-<body class="bg_cancelar">
+<body class="fondo_pag">
    <div>
     <nav class="navbar fixed-top" role="navigation">
           <div class="row">
@@ -28,23 +28,32 @@
                       <ul id="menu-contenedor">
                         <div >
                             <div id ="menu" class="row" >
-                            <span class="col-lg-5 col-md-1 col-sm-1 "></span>
-                            <a href="#"  class="btn btn-md col-lg-3 col-md-5  col-sm-12 "><i class="fas fa-user"></i> Sign Up</a>
-                            <a href="#" class="btn btn-md col-lg-3 col-md-4  col-sm-12 "><i class="fas fa-sign-in-alt"></i> Login</a>
+                            <span class="col-lg-1"></span>
+                            <a href="#"  class="btn btn-md col-lg-5 col-md-5  col-sm-12 " ><i class="fas fa-user"></i>  Comensales</a>
+                            <a href="#" class="btn btn-md col-lg-5 col-md-5  col-sm-12"><i class="fas fa-concierge-bell"></i> Restaurante</a>
                             </div>
                          </div>
                         </ul>
                     </li>
                 </ul>
             </div>
+            <div class="dropdown">
+              <button class="dropbtn"><i class="fas fa-sort-down"></i></button>
+              <div class="dropdown-content">
+              <a href="#"><span><i class="fas fa-concierge-bell"></i> </span>Sucursales</a>
+              <a href="#"><span><i class="fas fa-sign-in-alt"></i> </span>Cerrar Sesión</a>
+              </div>
+            </div>
         </nav>
-  
   <div id="cancelar-disponibilidad">
-    
-    <h1>Cancelar Disponibilidad</h1>
+    <div class="alert alertExito alert-success alert-dismissible fade show" role="alert" style="display:none">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        El horario se guardo exitosamente!
+      </div>
+    <h1 class="titulitos"><i class="fas fa-calendar-times"></i> Cancelar Disponibilidad</h1>
     
     <fieldset class="border p-3">
-      <legend class="w-auto">Dias cerrados</legend>
+      <legend class="titulitos w-auto">Dias cerrados</legend>
       <div class="card" rv-each-diacerrado="diasCerrados">
         <div class="card-body">
           <div class="row">
@@ -67,8 +76,13 @@
       <a href="#" data-toggle="modal" data-target="#modal-agregar-dia-cerrado" class="agregar" rv-on-click="eventos.abrirPopup">+Agregar</a>
     </div>
         <div class="modal fade" id="modal-agregar-dia-cerrado" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+         
           <div class="modal-dialog" role="document">
             <div class="modal-content">
+             <div class="alert alertError alert-danger alert-dismissible fade show" role="alert" style="display:none">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              Error al guardar!
+              </div>
               <div class="modal-header">
                 <h5 class="modal-title" id="modal-label">Agregar dia cerrado</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
@@ -111,7 +125,7 @@
                             </a>
                           </div>
                         </div>
-                        <div rv-show="diaACerrar.rangos | listaMenorA 2" class="form-group row">
+                        <div rv-show="diaACerrar.rangos | listaMenorA 3" class="form-group row">
                           <div class=" col-sm-12">
                             <a href="#" class="agregar" rv-on-click="eventos.agregarRango">+Agregar</a>
                           </div>

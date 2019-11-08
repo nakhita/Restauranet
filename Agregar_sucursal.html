@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalabre=no, initial-scale=1, maximum-scale=1,minium-scale=1">
+    <title>Agregar - Restauranet</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="fonts/fuentes.css">
+    <link href="css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
+    <link rel="shortcut icon" href="images/icono.ico" />
+    <script href="js/prefixfree.min.js"></script>
+</head>
+<body class="fondo_pag">
+     <nav class="navbar fixed-top" role="navigation">
+        <div class="row">
+              <div class="col-md-8 col-sm-1 col-1" id="menu-titulo">
+                 <a class="navbar-brand" href="#"><div id="titulo">Restauranet</div></a>
+              </div>
+              <ul class="menu_completo col-md-4 col-sm-11 col-11">
+                 <li class="submenu">
+                      <a class="icon-menu"><i class="fas fa-bars"></i></a>
+                    <ul id="menu-contenedor">
+                      <div >
+                          <div id ="menu" class="row" >
+                          <span class="col-lg-1"></span>
+                          <a href="#"  class="btn btn-md col-lg-5 col-md-5  col-sm-12 " ><i class="fas fa-user"></i>  Comensales</a>
+                          <a href="#" class="btn btn-md col-lg-5 col-md-5  col-sm-12"><i class="fas fa-concierge-bell"></i> Restaurante</a>
+                          </div>
+                       </div>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn"><i class="fas fa-sort-down"></i></button>
+            <div class="dropdown-content">
+            <a href="#"><span><i class="fas fa-concierge-bell"></i> </span>Sucursales</a>
+            <a href="#"><span><i class="fas fa-sign-in-alt"></i> </span>Cerrar Sesión</a>
+            </div>
+          </div>
+      </nav>
+    <form id="agregar_sucursal" class="containers">
+       <div class="container-dentro">
+           <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            La información se guardo exitosamente!
+          </div>
+            <div class=" row">
+              <div class="col-sm-12">
+                <h1 class="titulitos w-auto" ><i class="far fa-address-card"></i> Información del Restaurante</h1>
+                <br>
+              </div>
+            </div>
+            <div id="form-agregar">
+            <form action="/action_page.php" class="needs-validation" novalidate>
+              <div class="form-group">
+                <label for="uname">Nombre:</label>
+                <input type="text" class="form-control" id="uname" placeholder="Nombre del Restaurante" name="uname" required>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Telefono:</label>
+                <input type="tel" class="form-control" placeholder="Ingresa de telefono fijo">
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group">
+                <label for="pwd">E-mail:</label>
+                <input type="email" class="form-control" placeholder="Ingresa Email">
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Direccion:</label>
+                <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Ingresa direccion">
+                <input type="number" class="col-3 form-control" placeholder="Numero">
+                </div>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Localidad:</label>
+                <input type="text" class="form-control" placeholder="Ingresa Localidad">
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Provincia:</label>
+                <input type="text" class="form-control" placeholder="Ingresa Provincia">
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Selecione una foto: </label>
+                <div class="custom-file">
+                  <input type="file" name="pic" accept="image/*" id="customFile">
+                  <label class="custom-file-label" for="customFile">Seleccione una foto</label>
+                  <div class="valid-feedback"></div>
+                  <div class="invalid-feedback"></div>
+                </div>
+              </div> 
+            </form>
+           </div>
+            <div class="form-group row">
+              <div class="boton col-md-3 col-sm-11">
+                <button rv-on-click="eventos.guardar" type="button" class=" btn">Guardar</button>
+              </div>
+            </div>
+           </div> 
+      </form>
+      
+    <script src="js/popper.min.js"></script>
+    <script href="js/prefixfree.min.js"></script>
+    <script defer src="js/all.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="lib/picker.js"></script>
+    <script src="lib/picker.date.js"></script>
+    <script src="lib/picker.time.js"></script>
+    <script src="lib/translations/es_ES.js"></script>
+    <script src="js/rivets.bundled.min.js"></script>
+    <script src="js/Agregar_sucursal.js"></script>
+</body>
+</html>

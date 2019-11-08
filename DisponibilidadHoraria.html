@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="lib/themes/default.time.css">
     
 </head>
-<body class="contenedor">
+<body class="fondo_pag">
    <div>
     <nav class="navbar fixed-top" role="navigation">
           <div class="row">
@@ -29,16 +29,23 @@
                       <ul id="menu-contenedor">
                         <div >
                             <div id ="menu" class="row" >
-                            <span class="col-lg-5 col-md-1 col-sm-1 "></span>
-                            <a href="#"  class="btn btn-md col-lg-3 col-md-5  col-sm-12 "><i class="fas fa-user"></i> Sign Up</a>
-                            <a href="#" class="btn btn-md col-lg-3 col-md-4  col-sm-12 "><i class="fas fa-sign-in-alt"></i> Login</a>
+                            <span class="col-lg-1"></span>
+                            <a href="#"  class="btn btn-md col-lg-5 col-md-5  col-sm-12 " ><i class="fas fa-user"></i>  Comensales</a>
+                            <a href="#" class="btn btn-md col-lg-5 col-md-5  col-sm-12"><i class="fas fa-concierge-bell"></i> Restaurante</a>
                             </div>
                          </div>
                         </ul>
                     </li>
                 </ul>
             </div>
-        </nav>   
+            <div class="dropdown">
+              <button class="dropbtn"><i class="fas fa-sort-down"></i></button>
+              <div class="dropdown-content">
+              <a href="#"><span><i class="fas fa-concierge-bell"></i> </span>Sucursales</a>
+              <a href="#"><span><i class="fas fa-sign-in-alt"></i> </span>Cerrar Sesión</a>
+              </div>
+            </div>
+        </nav>
   <form id="disponibilidad-horaria" class="containers">
    <div class="container-dentro">
        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
@@ -47,7 +54,7 @@
       </div>
         <div class=" row">
           <div class="col-sm-12">
-            <h1 class="titulitos w-auto">Disponibilidad Horaria</h1>
+            <h1 class="titulitos w-auto"><i class="far fa-calendar-alt"></i> Disponibilidad Horaria</h1>
             <br>
           </div>
         </div>
@@ -89,7 +96,7 @@
 
         <fieldset class="border p-3">
           <legend class="titulitos w-auto">Promedio reserva 
-          <a href="#" data-toggle="tooltip" data-placement="top" title="Cuantas personas en promedio en un determinado tiempo"><i class="fas fa-exclamation-circle"></i></a></legend>
+          <a href="#" data-toggle="tooltip" data-placement="top" class="titulitos" title="Cuantas personas en promedio en un determinado tiempo"><i class="fas fa-exclamation-circle"></i></a></legend>
 
           <div class="row">
             <div class="col-sm-2">
@@ -125,7 +132,7 @@
        </div> 
   </form>
     </div>
-    <script src="js/popper.min.js" crossorigin="anonymous"></script>
+    <script src="js/popper.min.js"></script>
     <script href="js/prefixfree.min.js"></script>
     <script defer src="js/all.js"></script>
     <script src="js/jquery.js"></script>

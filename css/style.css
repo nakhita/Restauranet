@@ -1,6 +1,7 @@
 a {
-    color: #000;
     text-decoration: none;
+    color: #000;
+    
 
 }
 
@@ -16,7 +17,7 @@ nav {
     width: 100%;
     height: 100%;
     margin: auto;
-    background: url("../img/fondo.jpg");
+    /*background: url("../img/fondo.jpg");*/
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -42,15 +43,16 @@ nav #menu a {
     margin-left: 40%;
 }
 .boton:hover{
-    background: rgba(0,0,0,0.3);
+    background: rgba(184,134,11,0.7);
     color:burlywood;
     text-decoration: none;
 }
 
 nav #menu a:hover{
-    background: rgba(0,0,0,0.9);
-    color: #000 ;
+    background: rgba(0,0,0,0.3);
+    color: #FFFF ;
     text-decoration: none;
+     
     
 }
 
@@ -73,6 +75,7 @@ a.icon-borrar:hover{
     color: #000;
     text-decoration: none;
     
+    
 }
 
 .containers{
@@ -85,34 +88,47 @@ a.icon-borrar:hover{
     background: url("../img/fondo_datos.png");
     opacity: 0.9;
 }
+.containers-ABM{
+    margin-top: 200px;
+    padding: 50px;
+    background-color: #909090;
+    align-content: center;
+    background: url("../img/fondo_datos.png");
+    opacity: 0.9;
+}
 .container-dentro{
     background-color: #FFFF;
     padding: 10px;
     font-family: sans-serif;
     font-weight: 700;
-    
-    
 }
 
 
 .titulitos{
-    color:darkgoldenrod;
+    color:#b8860b;
 }
 .agregar{
     color:burlywood;
 }
+
+.agregar:hover{
+  color:burlywood;
+  text-decoration: none;
+}
+
 .navbar{
     display: block!important;
 }
 
 nav #titulo {
     font-family: BirdsofParadise;
-    font-size: 300%;
+    font-size: 350%;
     
 }
 nav #titulo:hover {
     color: #000 ;
     font-family: BirdsofParadise;
+    text-decoration: none;
     
 }
 nav #menu-contenedor{
@@ -126,7 +142,7 @@ nav #menu-titulo{
     padding-right: 0;
 }
 
-.bg_cancelar{
+.fondo_pag{
     width: 100%;
     height: 100%;
     background-color:#C3BF71;
@@ -134,6 +150,10 @@ nav #menu-titulo{
 
 .dia-seleccionado{
     padding-bottom: 1%;
+}
+#form-agregar{
+  margin-left: 4%;
+  margin-right: 4%;
 }
 
 #cancelar-disponibilidad{
@@ -146,6 +166,83 @@ nav #menu-titulo{
     align-content: center;
     background-color:#FCFBE3;
 }
+.contenedor-fondo{
+    font-family: sans-serif;
+    font-weight: 700px;
+    margin-top: 200px;
+    padding: 50px;
+    align-content:center;
+    background-color:#FCFBE3;
+}
+
+.tabs ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  
+}
+.vl {
+  border-left: 2px solid #DDDCC9 ;
+  padding-top: -10px;
+  padding-bottom: -10px;
+  position: absolute;
+  height: 100%;
+  right: 0px;
+  top: 0;
+}
+
+.tabs li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.tabs li a:hover {
+  background-color: #ECEBD5;
+  color: #000;
+}
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  /*right: 0;*/
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
 
 @media(max-width:1116px){
     a.icon-borrar{
@@ -153,6 +250,8 @@ nav #menu-titulo{
         
     }
 }
+
+
 /*
 @media (max-width:892px){
     nav #menu-contenedor{
