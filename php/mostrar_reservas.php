@@ -22,7 +22,7 @@
 	$resultado_reservas = mysqli_query($mysqli, $result_reservas);
 	while($row_reservas = mysqli_fetch_array($resultado_reservas)){
 		$cliente=$row_reservas['idcliente'];
-		$idreserva=$row_reservas['idreservas'];
+		$idreserva=$row_reservas['idreserva'];
 		echo "hora: ".$row_reservas['hora']."<br>";
 		echo "cantidad de personas: ".$row_reservas['cantidad_personas']."<br>";
 		echo "fecha: ".date('d/m/Y', strtotime($row_reservas['fecha']))."<hr>";?>

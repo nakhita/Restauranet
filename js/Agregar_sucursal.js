@@ -20,6 +20,7 @@ $(function() {
     }
     else{
       agregarBindeo();
+      
     }
   };
   var obtener_Sucursal = function(){

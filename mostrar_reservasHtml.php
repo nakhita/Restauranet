@@ -30,13 +30,12 @@
 		$resultado_reservas = mysqli_query($mysqli, $result_reservas);
 		
 		while($row_reservas = mysqli_fetch_array($resultado_reservas)){
-			
-			echo 'RESERVA Nro.'.$numeroReserva.'<br><br>';
+			echo '<b>RESERVA Nro.'.$numeroReserva.'</b><br><br>';
 			$numeroReserva++;
-			echo "nombre: ".$row_reservas['nombre']."<br>";
-			echo "hora: ".$row_reservas['hora']."<br>";
-			echo "cantidad de personas: ".$row_reservas['cantidad_personas'].'<br>';
-			echo "fecha: ".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br><br>';/*.'<hr>'*/;
+			echo "<b>Nombre:</b> ".$row_reservas['nombre']."<br>";
+			echo "<b>Hora:</b> ".$row_reservas['hora']."<br>";
+			echo "<b>Cantidad de personas:</b> ".$row_reservas['cantidad_personas'].'<br>';
+			echo "<b>Fecha: </b>".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br><br>';/*.'<hr>'*/;
 			echo '------------------------------------------------------------'.'<br>';
 							
 		}	
@@ -49,13 +48,13 @@
 			
 			while($row_reservas = mysqli_fetch_array($resultado_reservas)){
 			
-				echo 'RESERVA Nro.'.$numeroReserva.'<br><br>';
+				echo '<b>RESERVA Nro.'.$numeroReserva.'</b><br><br>';
 					
 				$numeroReserva++;
-				echo "nombre: ".$row_reservas['nombre']."<br>";
-				echo "hora: ".$row_reservas['hora']."<br>";
-				echo "cantidad de personas: ".$row_reservas['cantidad_personas']."<br>";
-				echo "fecha: ".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br><br>';/*."<hr>"*/;
+				echo "<b>Nombre: </b>".$row_reservas['nombre']."<br>";
+				echo "<b>Hora:</b> ".$row_reservas['hora']."<br>";
+				echo "<b>Cantidad de personas: </b>".$row_reservas['cantidad_personas']."<br>";
+				echo "<b>Fecha: </b>".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br><br>';/*."<hr>"*/;
 				echo '------------------------------------------------------------'.'<br>';
 																							
 				}
@@ -68,13 +67,13 @@
 				
 				while($row_reservas = mysqli_fetch_array($resultado_reservas)){
 		
-					echo 'RESERVA Nro.'.$numeroReserva.'<br><br>';
+					echo '<b>RESERVA Nro.'.$numeroReserva.'</b><br><br>';
 					
 					$numeroReserva++;
-					echo "nombre: ".$row_reservas['nombre']."<br>";
-					echo "hora: ".$row_reservas['hora']."<br>";
-					echo "cantidad de personas: ".$row_reservas['cantidad_personas']."<br>";
-					echo "fecha: ".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br><br>';/*."<hr>"*/;
+					echo "<b>Nombre: </b>".$row_reservas['nombre']."<br>";
+					echo "<b>Hora: </b>".$row_reservas['hora']."<br>";
+					echo "<b>Cantidad de personas: </b>".$row_reservas['cantidad_personas']."<br>";
+					echo "<b>Fecha: </b>".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br><br>';/*."<hr>"*/;
 					echo '------------------------------------------------------------'.'<br>';
 																
 				}	

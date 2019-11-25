@@ -6,6 +6,7 @@ a {
 
 a:hover{
   text-decoration: none !important;
+  color: #000;
 }
 
 nav {
@@ -31,6 +32,9 @@ nav {
     background-attachment: fixed;
 }
 
+.icon_der{
+  text-align: right !important;
+}
 .contenedor_principal{
   align-content: center;
   text-align: center;
@@ -181,7 +185,10 @@ i {
     color: #959256;
     text-shadow: 1px 1px 2px #000;
 }
-
+.titulitos-danger{
+  color: #BC2026;
+  text-shadow: 1px 1px 2px #000;
+}
 .sub-titulitos{
   color: #959256;
 }

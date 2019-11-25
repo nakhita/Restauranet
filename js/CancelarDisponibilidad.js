@@ -1,25 +1,73 @@
 $(function() {
   
   var datepicker;
-  var id_res=1;
   var m_diasCerrados = [];
-
+  var id_res;
   var m_diaACerrar = {
     cerrarTodoElDia : 1,
     rangos : []
   };
-
+  var mensaje;
   var m_vista;
-
+  var caja_contenedora;
   var m_pagina = {
     
   };
+  var info={
+    ID_CERR:0,
+    fecha:0,
+    inicio:0,
+    dia_completo:0
+  };
   
   var principal = function() {
-    inicializarVariables();
-    agregarBindeo();
+    id_res = getParameterByName("id");
+    mensaje= document.getElementById('mensaje');
+    if(id_res){
+      ocultar(mensaje);
+      inicializarVariables();
+      agregarBindeo();   
+    }
+    else{
+      caja_contenedora = document.getElementById('caja_diaCerrado');
+      ocultar(caja_contenedora);
+      mostrar(mensaje);
+    }
+  };
+  
+  var obtener_dias_cerrados = function(){
+    $.ajax({
+      url: 'php/obtener_dias_cerrados.php?id='+id_res,
+      type: 'get',
+      success : function(response) {
+       restaurantes = response;
+        agregarBindeo();
+      },
+      error: function(xhr, status, error) {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      }
+    });
+  };
+  var ocultar = function(el){
+    el.style.display= 'none';
+  };
+  
+  var mostrar = function(el) {
+    el.style.display = 'block';
   };
 
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+  
   var inicializarVariables = function() {
     $('.datepicker').pickadate({
       format: 'mmmm dd, yyyy',
@@ -152,7 +200,7 @@ $(function() {
         guardar : function(e, elem) {
             
           m_diaACerrar.fecha = $("#fecha").val();
- m_diaACerrar.fechaFormateada=datepicker.get('select', 'yyyy-mm-dd');
+          m_diaACerrar.fechaFormateada=datepicker.get('select', 'yyyy-mm-dd');
            //m_diaACerrar.fecha = "31-12-2019";
           
 
@@ -188,23 +236,25 @@ $(function() {
           }
         },
         borrarDiaCerrado : function(e, elem) {
-          var ix = elem.diasCerrados.indexOf(elem.diacerrado);
-          var id=elem.diacerrado.id;
-          var data = JSON.stringify(elem.diacerrado);
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                if(this.responseText=='ok'){
-                    m_vista.unbind(); elem.diasCerrados.splice(ix,1);
-                    m_vista.bind();
+          if(confirm("Desea borrar sucursal?")){
+            var ix = elem.diasCerrados.indexOf(elem.diacerrado);
+            var id=elem.diacerrado.id;
+            var data = JSON.stringify(elem.diacerrado);
+              var xmlhttp = new XMLHttpRequest();
+              xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                  if(this.responseText=='ok'){
+                      m_vista.unbind(); elem.diasCerrados.splice(ix,1);
+                      m_vista.bind();
+                  }
                 }
-              }
-            };
-            console.log(data);
-            xmlhttp.open("POST", "php/cancelar_disponibilidad_borrar.php", true);
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.send("data=" + data);
-          //para tener todos m_diasCerrados
+              };
+              console.log(data);
+              xmlhttp.open("POST", "php/cancelar_disponibilidad_borrar.php", true);
+              xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+              xmlhttp.send("data=" + data);
+            //para tener todos m_diasCerrados
+          }
         }
       }
     });

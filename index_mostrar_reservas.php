@@ -55,7 +55,10 @@
           <!-- Contenidos de los tabs -->
           <div class="tab-content">
 
-              <div class="tab-pane fade show active" id="hoy" aria-labelledby="hoy-tab"><?php $mostrarflag= true; include('mostrar_reservasHtml.php')?></div>
+              <div class="tab-pane fade show active" id="hoy" aria-labelledby="hoy-tab">
+                <?php $mostrarflag= true; 
+                include('mostrar_reservasHtml.php')?>            
+              </div>
 
               <div class="tab-pane fade" role="tabpanel" id="mes" aria-labelledby="mes-tab"><br>
                  <div class="row">	
@@ -68,7 +71,9 @@
                 <p id="respa"/>
 
               </div>
-             <div class="tab-pane fade show" id="todas" aria-labelledby="todas-tab"><?php $mostrarflag= false; include('mostrar_reservasHtml.php')?></div>
+             <div class="tab-pane fade show" id="todas" aria-labelledby="todas-tab">
+               <?php $mostrarflag= false; include('mostrar_reservasHtml.php')?>
+            </div>
            </div>
           </div>
           <script src="js/cabecera.js"></script>

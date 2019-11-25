@@ -1,5 +1,4 @@
 $(function() {
-  var id_res =1;
   var restaurantes;
   var info = {
     id:1,
@@ -157,12 +156,22 @@ $(function() {
     rivets.formatters.formatearLinkEditar = function(id) {
       return "Agregar_sucursal.html?id="+id;
     };
-    rivets.formatters.formatearLinkBorrar = function(id) {
-      return "php/lista_sucursales_borrar.php?id="+id;
+    rivets.formatters.formatearLinkCancelarDisponibilidad = function(id) {
+      return "CancelarDisponibilidad.html?id="+id;
     };
     m_vista = rivets.bind($('#lista_sucursal'), {
-      restaurantes: restaurantes
+      restaurantes: restaurantes,
+      eventos: eventos
     });
   };
+  
+  var eventos = {
+    borrar: function(e,el){
+      if(confirm("Desea borrar sucursal?")){
+        location.href= "php/lista_sucursales_borrar.php?id="+el.info.ID_RES;  
+      };
+    }
+    
+  }
   principal();
 });

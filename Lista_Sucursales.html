@@ -44,9 +44,9 @@
                 <b><i class="fas fa-envelope"></i> Email:</b> {info.email}
               </div>
               </div>
-              <div class="col-1">
+              <div class="col-1 icon_der">
                 <a rv-href="info.ID_RES | formatearLinkEditar"><i class="fas fa-edit"></i> </a>
-                <a rv-href="info.ID_RES | formatearLinkBorrar"><i class="fas fa-trash-alt"></i></a>
+                <a href="#" rv-on-click="eventos.borrar"><i class="fas fa-trash-alt"></i></a>
               </div>
           </div>
           <hr width=50%>
@@ -65,8 +65,16 @@
                 </ul>
                 </div>
               </div>
-              <div class="col-1">
+              <div class="col-1 icon_der">
                 <a href="DisponibilidadHoraria.html" rv-on-click="eventos.borrarDiaCerrado"><i class="fas fa-edit"></i></a>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-11">
+                <b><i class="fas fa-times-circle"></i> Dias cerrados</b>
+              </div>
+              <div class="col-1 icon_der">
+                <a rv-href="info.ID_RES | formatearLinkCancelarDisponibilidad "><i class="fas fa-sign-in-alt"></i></a>
               </div>
           </div>
         </div>
