@@ -10,9 +10,7 @@ $(function() {
   var mensaje;
   var m_vista;
   var caja_contenedora;
-  var m_pagina = {
-    
-  };
+  
   var info={
     ID_CERR:0,
     fecha:0,
