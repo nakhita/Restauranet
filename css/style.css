@@ -169,7 +169,7 @@ ul li .nav-item:hover{
   color: #959256;
   background: #A99041;
 }
-#menu_logueado{
+.menu_contenedor{
   text-align: right;
 }
 
@@ -317,9 +317,10 @@ nav #menu-titulo{
   
 }
 
-#usuario{
+.usuario_style{
   font-size: 20px;
 }
+
 .dropdown {
   position: relative;
   display: inline-block;

@@ -10,13 +10,13 @@ $nombre = $_POST["nombre"];
 $rol = $_POST["rol"];
 $con= conectar_con();
 
-$sql = "SELECT ID_US FROM usuario where email = ?";
+$sql = "SELECT ID_US FROM usuario where email = ? and ID_ROL = ? ";
 $stmt = $con->prepare($sql);
         
 if ($stmt === false) {
-    echo 'error';
+    echo $con->error;;
 }
-$stmt->bind_param('s',$email);
+$stmt->bind_param('si',$email,$rol);
 $resultado = $stmt->execute();
 if($resultado === false) {
   return $con->error;

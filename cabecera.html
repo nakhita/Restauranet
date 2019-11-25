@@ -13,7 +13,7 @@
   <nav class="navbar fixed-top" role="navigation">
           <div class="row">
                 <div class="col-md-8 col-sm-1 col-1" id="menu-titulo">
-                   <a class="navbar-brand" href="Pantalla_principal.html"><div id="titulo">Restauranet <img id="logo" src="img/Logo.png"></div></a>
+                   <a class="navbar-brand" href="#"><div id="titulo">Restauranet <img id="logo" src="img/Logo.png"></div></a>
                 </div>
                 <ul id="menu-contenedor" class="menu_completo col-md-4 col-sm-11 col-11">
                    <li class="submenu">
@@ -22,21 +22,31 @@
                         <div >
                             <div id ="menu" class="row" >
                             <span class="col-lg-1"></span>
-                            <a href="#"  class="btn btn-md col-lg-5 col-md-5  col-sm-12 " ><i class="fas fa-user"></i>  Comensales</a>
-                            <a href="#" id="authorize-button" class="btn btn-md col-lg-5 col-md-5  col-sm-12"><i class="fas fa-concierge-bell"></i> Restaurante</a>
+                            <a href="#" id="login_cliente" class="btn btn-md col-lg-5 col-md-5  col-sm-12 " ><i class="fas fa-user"></i>  Comensales</a>
+                            <a href="#" id="login_res" class="btn btn-md col-lg-5 col-md-5  col-sm-12"><i class="fas fa-concierge-bell"></i> Restaurante</a>
                             </div>
                          </div>
                         </ul>
                     </li>
                 </ul>
                 <div class="col-md-4 col-sm-11 col-11">
-                  <div id="menu_logueado" class="dropdown">
-                    <b id="usuario">
+                  <div id="menu_logueado_rest" class="menu_contenedor dropdown">
+                    <b id="usuario" class="usuario_style">
                     </b>
                     <button class="dropbtn"><i class="fas fa-sort-down"></i></button>
                     <div class="dropdown-content">
                     <a href="Lista_Sucursales.html"><span><i class="fas fa-concierge-bell"></i> </span>Sucursales</a>
-                    <a href="#" id="signout-button"><span><i class="fas fa-sign-in-alt"></i> </span>Cerrar Sesión</a>
+                    <a href="#" id="out_res"><span><i class="fas fa-sign-in-alt"></i> </span>Cerrar Sesión</a>
+                    </div>
+                  </div>
+                  <div id="menu_logueado_cliente" class="menu_contenedor dropdown">
+                    <b id="usuario1" class="usuario_style">
+                    </b>
+                    <button class="dropbtn"><i class="fas fa-sort-down"></i></button>
+                    <div class="dropdown-content">
+                      <a href="#"><span><i class="fas fa-concierge-bell"></i> </span>Reservas</a>
+                      <a href="#"><span><i class="far fa-file-alt"></i></span> Historial</a>
+                      <a href="#" id="out_cliente"><span><i class="fas fa-sign-in-alt"></i> </span>Cerrar Sesión</a>
                     </div>
                   </div>
               </div>
