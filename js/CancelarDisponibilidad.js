@@ -1,25 +1,73 @@
 $(function() {
   
   var datepicker;
-  var id_res=1;
   var m_diasCerrados = [];
-
+  var id_res;
   var m_diaACerrar = {
     cerrarTodoElDia : 1,
     rangos : []
   };
-
+  var mensaje;
   var m_vista;
-
-  var m_pagina = {
-    
+  var caja_contenedora;
+  
+  var info={
+    ID_CERR:0,
+    fecha:0,
+    inicio:0,
+    dia_completo:0
   };
   
   var principal = function() {
-    inicializarVariables();
-    agregarBindeo();
+    id_res = getParameterByName("id");
+    mensaje= document.getElementById('mensaje');
+    if(id_res){
+      ocultar(mensaje);
+      inicializarVariables();
+      obtener_dias_cerrados();
+    }
+    else{
+      caja_contenedora = document.getElementById('caja_diaCerrado');
+      ocultar(caja_contenedora);
+      mostrar(mensaje);
+    }
+  };
+  
+  var obtener_dias_cerrados = function(){
+    $.ajax({
+      url: 'php/obtener_dias_cerrados.php?id='+id_res,
+      type: 'get',
+      success : function(response) {
+        if(response) {
+          m_diasCerrados = response;
+        }
+        agregarBindeo();
+      },
+      error: function(xhr, status, error) {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      }
+    });
+  };
+  var ocultar = function(el){
+    el.style.display= 'none';
+  };
+  
+  var mostrar = function(el) {
+    el.style.display = 'block';
   };
 
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+  
   var inicializarVariables = function() {
     $('.datepicker').pickadate({
       format: 'mmmm dd, yyyy',
@@ -108,7 +156,11 @@ $(function() {
     };
 
     rivets.formatters.formatoHora = function(valor) {
-      return Math.floor(valor/100) + ':' + valor%100;
+      var horas = Math.floor(valor/100);
+      var minutos = valor%100;
+      if(horas < 10) { horas = '0'+horas; }
+      if(minutos < 10) { minutos = '0'+minutos; }
+      return horas + ':' + minutos;
     };
     
     m_vista = rivets.bind($('#cancelar-disponibilidad'), {
@@ -150,28 +202,13 @@ $(function() {
           elem.rango.hasta = horaHasta;
         },
         guardar : function(e, elem) {
+            
           m_diaACerrar.fecha = $("#fecha").val();
           m_diaACerrar.fechaFormateada=datepicker.get('select', 'yyyy-mm-dd');
+
           m_diaACerrar.id_res=id_res;
-          var data = JSON.stringify(m_diaACerrar);
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-              if(this.responseText>0){
-                  $('#modal-agregar-dia-cerrado').modal('hide'); 
-               m_diaACerrar.id= this.responseText;
-                m_diasCerrados.push($.extend(true, {}, m_diaACerrar));
-                  $('.alertExito').show();
-              }
-              else{
-                $('.alertError').show();
-              }
-            }
-          };
-          console.log(data);
-          xmlhttp.open("POST", "php/cancelar_disponibilidad.php", true);
-          xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xmlhttp.send("data=" + data);
+          var diaCerrado = JSON.stringify(m_diaACerrar);
+          guardarDiaCerrado(diaCerrado);
         },
         cerrarTodoElDia : function(e, elem) {
           if(elem.diaACerrar.cerrarTodoElDia == "0") {
@@ -182,22 +219,11 @@ $(function() {
           }
         },
         borrarDiaCerrado : function(e, elem) {
-          var ix = elem.diasCerrados.indexOf(elem.diacerrado);
-          var id=elem.diacerrado.id;
-          var data = JSON.stringify(elem.diacerrado);
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                if(this.responseText=='ok'){
-                    m_vista.unbind(); elem.diasCerrados.splice(ix,1);
-                    m_vista.bind();
-                }
-              }
-            };
-            console.log(data);
-            xmlhttp.open("POST", "php/cancelar_disponibilidad_borrar.php", true);
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.send("data=" + data);
+          if(confirm("Desea borrar el día cerrado?")){
+            var data={};
+            data.ids = elem.diacerrado.ids;
+            borrarDiaCerrado(data);
+          }
         }
       }
     });
@@ -207,6 +233,44 @@ $(function() {
     return Math.floor(hora/100)*60 + hora%100;
   };
   
+  var borrarDiaCerrado = function(data) {
+    $.ajax({
+      data: data,
+      url: 'php/cancelar_disponibilidad_borrar.php',
+      type: 'post',
+      success : function(response) {
+        if(response) {
+          location.href = 'CancelarDisponibilidad.html?id='+id_res;
+        }
+      },
+      error: function(xhr, status, error) {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      }
+    });
+  };
+
+  var guardarDiaCerrado = function(diaCerrado) {
+    var data = {};
+    data.data = diaCerrado;
+    $.ajax({
+      data: data,
+      url: 'php/cancelar_disponibilidad.php',
+      type: 'post',
+      success : function(response) {
+        if(response) {
+          obtener_dias_cerrados();
+          location.href = 'CancelarDisponibilidad.html?id='+id_res;
+        }
+      },
+      error: function(xhr, status, error) {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      }
+    });
+  };
 
   principal();
 });

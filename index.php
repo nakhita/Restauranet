@@ -19,7 +19,7 @@
       </div>
     <div class="row img_principal">
       <span class="col-4"></span>
-     <img class="col-md-4 col-12"src="img/Logo_general.png" alt="">
+     <img class="col-md-4 col-12 img_a img_principal "src="img/Logo_general.png" alt="">
     </div>
     <div class="contenedor_principal">
      <div class="row">

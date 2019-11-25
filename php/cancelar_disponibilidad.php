@@ -17,22 +17,20 @@ if($data->cerrarTodoElDia == 1){
     $fecha_res=$data->fechaFormateada;
     $stmt = $con->prepare($sql);
     if ($stmt == false) {
-            echo $id;
+      echo $con->error;
+      return;
     }
-    else{
-        $stmt->bind_param("sii",$fecha_res,$dia_completo,$id_res);
-        $ok2 = $stmt->execute();
-        if(!$ok2){
-            echo $id-1;
-        }
-        else{
-           $ok=true; 
-          $id_dia_cerrado = $stmt->insert_id;
-          $id_dias_cerrados[]= $id_dia_cerrado;
-        }
-        
+  
+    $stmt->bind_param("sii",$fecha_res,$dia_completo,$id_res);
+    $ok2 = $stmt->execute();
+    if(!$ok2){
+      echo $con->error;
+      return;
     }
-    
+
+    $ok=true; 
+    $id_dia_cerrado = $stmt->insert_id;
+    $id_dias_cerrados[]= $id_dia_cerrado;
 }
 else{
     $sql= "INSERT INTO cerrado_res (fecha,inicio,fin,dia_completo,ID_RES) values(?,?,?,?,?)";
@@ -45,20 +43,19 @@ else{
         $stmt = $con->prepare($sql);
         
         if ($stmt == false) {
-            echo $id;
+          echo $con->error;
+          return;
         }
-        else{
-            $stmt->bind_param("siibi",$fecha_res,$inicio,$fin,$dia_completo,$id_res); 
-            $ok2 = $stmt->execute();
-            if(!$ok2){
-                echo $id-1;
-            }
-            else{
-               $id_dia_cerrado = $stmt->insert_id;
-                $id_dias_cerrados[]= $id_dia_cerrado;
-               $ok=true; 
-            }
+      
+        $stmt->bind_param("siiii",$fecha_res,$inicio,$fin,$dia_completo,$id_res); 
+        $ok2 = $stmt->execute();
+        if(!$ok2) {
+          echo $con->error;
+          return;
         }
+        $id_dia_cerrado = $stmt->insert_id;
+        $id_dias_cerrados[]= $id_dia_cerrado;
+        $ok=true;
     }
     
 }

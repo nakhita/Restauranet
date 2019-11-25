@@ -48,8 +48,8 @@ nav {
 }
 .titulo_contenedor_item {
   color:white;
-  
   text-shadow: 2px 2px 4px #000000;
+  align-content: center;
 }
 .contenedor_items:not(.hola) {
   background-color: #959256;
@@ -226,11 +226,10 @@ i {
   width: 100%;
  
 }
-
-img{
+img_a{
   height: 40%;
-  
 }
+
 .navbar{
     display: block!important;
 }
