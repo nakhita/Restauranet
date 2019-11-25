@@ -15,9 +15,27 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 
 $result = $stmt->get_result();
-if($result->num_rows === 0) exit('No rows');
+if($result->num_rows === 0) exit('{}');
+$ultima_fecha = 0;
+$rangos = array();
 while($row = $result->fetch_object()) {
-  $dias_cerrados[] = $row;
+  if($ultima_fecha != $row->fecha) {
+    $dia_cerrado = new stdClass;
+    $dia_cerrado->fecha = $row->fecha;
+    $dia_cerrado->cerrarTodoElDia = $row->dia_completo;
+    $rangos = array();
+    $ids = array();
+    $dia_cerrado->ids = $ids;
+    $dias_cerrados[] = $dia_cerrado;
+  }
+  $rango = new stdClass;
+  $rango->desde = $row->inicio;
+  $rango->hasta = $row->fin;
+  $rangos[] = $rango;
+  $dia_cerrado->ids[] = $row->ID_CERR;
+  $dia_cerrado->rangos = $rangos;
+  
+  $ultima_fecha = $row->fecha;
 }
 echo json_encode($dias_cerrados);
 $stmt->close();

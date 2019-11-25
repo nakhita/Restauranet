@@ -36,8 +36,8 @@
             <div class="col-sm-11">
               <div>Dia: {diacerrado.fecha}</div>
               <div>Cerrado todo el dia: {diacerrado.cerrarTodoElDia | formatoBoolean}</div>
-              <div rv-show="diacerrado.rangos | listaMayorA 0" rv-each-rango="diacerrado.rangos">
-                Desde {rango.desdeFormateado} Hasta {rango.hastaFormateado}
+              <div rv-show="diacerrado.cerrarTodoElDia | igual 0" rv-each-rango="diacerrado.rangos">
+                Desde {rango.desde | formatoHora} Hasta {rango.hasta | formatoHora}
               </div>
             </div>
             <div class="col-sm-1">

@@ -2,24 +2,32 @@
 include("conexion.php");
 
 header("Content-Type: application/json; charset=UTF-8");
-$data = json_decode($_POST["data"], false);
+
+if(!isset($_POST["ids"])) {
+  echo '{}';
+  return;
+}
+
+$ids = $_POST["ids"];
 $con= conectar_con();
 
 $sql= "DELETE FROM cerrado_res WHERE ID_CERR = ?";
-$id=$data->id;
-$stmt = $con->prepare($sql);
-if ($stmt == false) {
-        echo -1;
+
+foreach($ids as $id) {
+  $stmt = $con->prepare($sql);
+  if ($stmt == false) {
+    echo $con->error;
+    return;
+  }
+  
+  $stmt->bind_param("i",$id);
+  $ok = $stmt->execute();
+  if(!$ok){
+    echo $con->error;
+    return;
+  }
 }
-else{
-    $stmt->bind_param("i",$id);
-    $ok = $stmt->execute();
-    if(!$ok){
-        echo -2;
-    }
-    else{
-       echo 'ok'; 
-    }
-}
+
+echo '{}';
 
 ?>
