@@ -15,7 +15,7 @@
 <body class="principal-background">
      <div id="cabecera">
     </div>
-    <form id="agregar_sucursal" class="containers">
+    <div id="agregar_sucursal" class="containers">
        <div class="container-dentro">
            <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -28,55 +28,34 @@
               </div>
             </div>
             <div id="form-agregar">
-            <form action="/action_page.php" class="needs-validation" novalidate>
+            <form id="form_agregar_sucursal">
               <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input maxlength="50" rv-value="info.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre del Restaurante" name="nombre" required>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback"></div>
+                <input rv-value="info.nombre" maxlength="50" type="text" class="form-control" id="nombre" placeholder="Nombre del Restaurante" name="nombre">
               </div>
               <div class="form-group">
                 <label for="telefono">Telefono:</label>
-                <input maxlength="10" rv-value="info.telefono" type="tel" name="telefono" id="telefono" class="form-control" placeholder="Ingresa de telefono fijo">
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback"></div>
+                <input maxlength="10" rv-value="info.telefono" type="text" name="telefono" id="telefono" class="form-control" placeholder="Ingresa de telefono fijo">
               </div>
               <div class="form-group">
                 <label for="email">E-mail:</label>
                 <input maxlength="50" rv-value="info.email" type="email" name="email" id="email" class="form-control" placeholder="Ingresa Email">
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback"></div>
               </div>
               <div class="form-group">
                 <label for="direccion">Direccion:</label>
                 <div class="input-group mb-3">
                 <input maxlength="50" rv-value="info.direccion" type="text" name="direccion" id="direccion" class="form-control" placeholder="Ingresa direccion">
-                <input rv-value="info.numero" type="number" class="col-3 form-control" placeholder="Numero">
+                <input rv-value="info.numero" type="text" maxlength="4" class="col-3 form-control" placeholder="Numero" id="numero" name="numero">
                 </div>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback"></div>
               </div>
               <div class="form-group">
                 <label for="localidad">Localidad:</label>
                 <input maxlength="50" rv-value="info.localidad" type="text" name="localidad" id="localidad" class="form-control" placeholder="Ingresa Localidad">
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback"></div>
               </div>
               <div class="form-group">
                 <label for="provincia">Provincia:</label>
                 <input maxlength="50" rv-value="info.provincia" type="text" name="provincia" id="provincia"  class="form-control" placeholder="Ingresa Provincia">
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback"></div>
               </div>
-              <div class="form-group">
-                <label for="pic">Selecione una foto: </label>
-                <div class="custom-file">
-                  <input type="file" id="pic" name="pic" accept="image/*" id="customFile">
-                  <label class="custom-file-label" for="customFile">Seleccione una foto</label>
-                  <div class="valid-feedback"></div>
-                  <div class="invalid-feedback"></div>
-                </div>
-              </div> 
             </form>
            </div>
             <div class="form-group row">
@@ -88,13 +67,14 @@
               </div>
             </div>
            </div> 
-      </form>
-      
+      </div>
+    
     <script src="js/popper.min.js"></script>
     <script href="js/prefixfree.min.js"></script>
     <script defer src="js/all.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
     <script src="js/menu.js"></script>
     <script src="lib/picker.js"></script>
     <script src="lib/picker.date.js"></script>

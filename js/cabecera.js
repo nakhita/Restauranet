@@ -10,11 +10,14 @@ $(function() {
   var login_cliente = {};
   var btn_salir_res = {};
   var btn_salir_cliente = {};
+  var btn_reservas_cliente = {};
   var menu_logeo={};
   var menu_logout_res={};
   var menu_logout_cliente={};
   var name_user={};
   var name_res={};
+  var m_vista={};
+  var usuario={};
   var roles = {
     RESTAURANTE: 1,
     USUARIO : 2
@@ -25,6 +28,7 @@ $(function() {
     login_cliente = document.getElementById('login_cliente');
     btn_salir_res = document.getElementById('out_res');
     btn_salir_cliente = document.getElementById('out_cliente');
+    btn_reservas_cliente = document.getElementById('redireccion_reservas_cliente');
     menu_logeo=document.getElementById('menu-contenedor');
     menu_logout_res=document.getElementById('menu_logueado_rest'); 
     menu_logout_cliente=document.getElementById('menu_logueado_cliente'); 
@@ -51,9 +55,38 @@ $(function() {
       }, onFailure);
       btn_salir_res.onclick = handleSignoutClick;
       btn_salir_cliente.onclick = handleSignoutClick;
+      agregarBindeo();
+      
     });
   };
   
+var eventos =  {
+  redireccion_reservas_cliente: function(){ 
+    location.href = "index_buscar_reserva.php?id="+usuario.id;
+  }
+}
+
+var agregarBindeo = function() {
+    rivets.configure({
+      prefix: 'rv',
+      preloadData: true,
+      rootInterface: '.',
+      templateDelimiters: ['{', '}'],
+      iterationAlias : function(modelName) {
+        return '%' + modelName + '%';
+      },
+      handler: function(target, event, binding) {
+        this.call(target, event, binding.view.models)
+      },
+      executeFunctions: false
+    });
+    m_vista = rivets.bind($('#cabecera_cuerpo'), {
+        eventos: eventos
+    });
+    rivets.formatters.redireccion_reservas_cliente2 = function() {
+      return "index_buscar_reserva.php?id="+usuario.id;
+    };
+}
   var onSuccess = function(user, rol) {
     loguear(user.getBasicProfile().getName(), user.getBasicProfile().getEmail(), rol, function(){
       refrescarSesion();
@@ -103,7 +136,7 @@ $(function() {
       type: 'get',
       success : function(response){
         if(response) {
-          var usuario=JSON.parse(response);
+          usuario=JSON.parse(response);
           ocultar(menu_logeo);
           
           if(usuario.rol==1){

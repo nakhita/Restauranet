@@ -21,6 +21,10 @@ nav {
     display: flex;
 }
 
+.form_contenedor_index{
+  text-align: center !important;
+  align-content: center !important;
+}
 .principal-background {
     background:
         linear-gradient(#C3BF71, transparent),
@@ -42,13 +46,16 @@ nav {
   margin-left: 5%;
   margin-right: 5%;
 }
-
-.contenedor_items{
+.titulo_contenedor_item {
+  color:white;
+  
+  text-shadow: 2px 2px 4px #000000;
+}
+.contenedor_items:not(.hola) {
   background-color: #959256;
   color:white;
   text-shadow: 2px 2px 4px #000000;
-  padding: 3%;
-
+  padding: 1.5%;
 }
 .estrellas{
   font-size: 40px;
@@ -215,7 +222,13 @@ i {
 
 .img_principal{
   text-align: center;
-  margin-top: 100px;
+  margin-top: 100px; 
+  width: 100%;
+ 
+}
+
+img{
+  height: 40%;
   
 }
 .navbar{
@@ -360,6 +373,22 @@ nav #menu-titulo{
 
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
+}
+
+input.invalido {
+  border-color: #dc3545;
+  padding-right: calc(1.5em + .75rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center right calc(.375em + .1875rem);
+  background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+label.invalido {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
 }
 
 @media(max-width:1116px){

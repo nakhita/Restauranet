@@ -6,11 +6,44 @@ $data = json_decode($_POST["data"], false);
 $con= conectar_con();
 $id_res=$data->{"idRes"};
 
-//-Disponibilidad Guardar-//
 
+//-Borrar primero si existe
+$sql= "DELETE FROM horario_res WHERE ID_RES = ?";
+$stmt = $con->prepare($sql);
+if ($stmt == false) {
+  echo $con->error;
+  return;
+}
+else{
+  $stmt->bind_param("i",$id_res);
+  $ok = $stmt->execute();
+  if(!$ok){
+    echo $con->error;
+    return;
+  }
+}
+
+//-Borrar primero si existe
+$sql= "DELETE FROM promedio_reserva WHERE ID_RES = ?";
+$stmt = $con->prepare($sql);
+if ($stmt == false) {
+  echo $con->error;
+  return;
+}
+else{
+  $stmt->bind_param("i",$id_res);
+  $ok = $stmt->execute();
+  if(!$ok){
+    echo $con->error;
+    return;
+  }
+}
+
+
+//-Disponibilidad Guardar-//
 $sql= "INSERT INTO horario_res (dia,inicio,fin,ID_RES) values(?,?,?,?)";
-$ok=false;
-foreach($data -> dias as $dia){
+if(isset($data -> dias) && !empty($data -> dias)) {
+  foreach($data -> dias as $dia){
     $dia_id=$dia -> id;
     foreach($dia -> rangos as $rango){
         $inicio=$rango -> desde;
@@ -18,22 +51,37 @@ foreach($data -> dias as $dia){
         $stmt = $con->prepare($sql);
         
         if ($stmt === false) {
-            echo 'error';
+          echo $con->error;
+          return;
         }
         $stmt->bind_param("iiii",$dia_id,$inicio,$fin,$id_res);
-        $stmt->execute();
+        $resultado = $stmt->execute();
+        if($resultado === false) {
+          echo $con->error;
+          return;
+        } 
     }
-    $ok=true;
+  }
 }
-if($ok){
-    $sql= "INSERT INTO promedio_reserva (horas,personas,ID_RES) values(?,?,?)";
-    $horario= $data->prom;
-    $stmt = $con->prepare($sql);
-    if ($stmt === false) {
-            echo 'error';
-    }
-    $stmt->bind_param("iii",$horario->tiempo,$horario->mesas,$id_res);
-    $stmt->execute();
+
+$sql= "INSERT INTO promedio_reserva (horas,personas,ID_RES) values(?,?,?)";
+$horario= $data->prom;
+$stmt = $con->prepare($sql);
+if ($stmt === false) {
+  echo $con->error;
+  return;
 }
-echo  'ok';
+$stmt->bind_param("iii",$horario->tiempo,$horario->mesas,$id_res);
+$resultado = $stmt->execute();
+if($resultado === false) {
+  echo $con->error;
+  return;
+}
+
+if($ok) {
+  echo json_encode($ok);
+} else {
+  echo 'error';
+}
+
 ?>

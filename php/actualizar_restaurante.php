@@ -35,7 +35,11 @@ if(isset($ID_RES)) {
     return;
   }
   $stmt->bind_param("sisi",$nombre,$telefono,$email,$ID_RES);
-  $stmt->execute();
+  $resultado = $stmt->execute();
+  if ($resultado === false) {
+    echo $con->error;
+    return;
+  }
   
   $sql= "UPDATE direccion SET nombreCalle = ?, numero = ?,localidad = ?,provincia = ? WHERE ID_DIR = ?";
   $stmt = $con->prepare($sql);
@@ -44,27 +48,42 @@ if(isset($ID_RES)) {
     return;
   }
   $stmt->bind_param("sissi",$direccion,$numero,$localidad,$provincia,$ID_RES);
-  $stmt->execute();
+  $resultado = $stmt->execute();
+  if ($resultado === false) {
+    echo $con->error;
+    return;
+  }
+  
+ echo '{}';
 } else {
-  $sql= "INSERT INTO restaurante(nombre, telefono,email,ID_US) values(?,?,?,?)";
+  $sql= "INSERT INTO restaurante(nombre,telefono,email,ID_US) values(?,?,?,?)";
   $stmt = $con->prepare($sql);
   if ($stmt === false) {
     echo $con->error;
     return;
   }
   $stmt->bind_param("sisi",$nombre,$telefono,$email,$ID_US);
-  $stmt->execute();
+  $resultado = $stmt->execute();
+  if ($resultado === false) {
+    echo $con->error;
+    return;
+  }
+  $ID_RES = $stmt->insert_id;
+  echo json_encode($ID_RES);
   
   // direccion
-  $sql= "INSERT INTO direccion(ID_DIR,nombreCalle, numero,localidad,provincia) values((SELECT MAX(ID_RES) FROM restaurante),?,?,?,?)";
+  $sql= "INSERT INTO direccion(ID_DIR,nombreCalle, numero,localidad,provincia) values(?,?,?,?,?)";
   $stmt = $con->prepare($sql);
   if ($stmt === false) {
     echo $con->error;
     return;
   }
-  $stmt->bind_param("siss",$direccion,$numero,$localidad,$provincia);
-  $stmt->execute();
-  
+  $stmt->bind_param("isiss",$ID_RES,$direccion,$numero,$localidad,$provincia);
+  $resultado = $stmt->execute();
+  if ($resultado === false) {
+    echo $con->error;
+    return;
+  }
 }
-echo '{}';
+
 ?>

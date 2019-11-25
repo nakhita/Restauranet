@@ -1,6 +1,6 @@
 
 $(function() {
-  var id_res =1;
+  var id_res = 0;
   var m_horario = {
     dias: [
       {
@@ -52,7 +52,34 @@ $(function() {
   
   var principal = function() {
     inicializarVariables();
-    agregarBindeo();
+    if(!id_res || id_res == 0) {
+      alert('No ha seleccionado un restaurante');
+      location.href='Lista_Sucursales.html';
+    } 
+    obtenerDisponibilidad(id_res, function(horario) {
+      if(horario && horario.tiempo) {
+        $("#tiempo_prom").val(horario.tiempo);
+      }
+      if(horario && horario.mesas) {
+        $("#mesas_prom").val(horario.mesas);
+      }
+      $.each(m_horario.dias, function(ix, el){
+        $.each(horario.dias, function(ixHor, elHor){
+          if(el.id == elHor.id) {
+            el.seleccionado = true;
+            el.rangos = elHor.rangos;
+          }
+        });
+      });
+      agregarBindeo();
+      $('.timepicker').each(function(ix, el){
+        $(el).pickatime({
+          clear: ''
+        });
+        var picker = $(el).pickatime('picker');
+        picker.set('select', $(el).data('hora'));
+      });
+    });
   };
 
   var inicializarVariables = function() {
@@ -63,6 +90,8 @@ $(function() {
       e.preventDefault();
       $(this).hide();
     });
+    
+    id_res=getParameterByName("id");
   };
 
   var agregarNuevoRango = function(e, elem) {
@@ -207,19 +236,52 @@ $(function() {
           horario.idRes= id_res;
           
           console.log(horario);
-        var data = JSON.stringify(horario);
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            if(this.responseText=='ok'){
-                $('.alert').show();
-            }
-          }
-        };
-        xmlhttp.open("POST", "php/disponibilidad_horaria.php", true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("data=" + data);
+          guardarDisponibilidad(horario);
         }
+      }
+    });
+    
+  };
+  
+  var getParameterByName = function(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+  
+  var obtenerDisponibilidad = function(id, callback) {
+    $.ajax({
+      url: 'php/obtener_disponibilidad.php?id='+id,
+      type: 'get',
+      success: function (response) {
+        console.log(response);
+        if(callback) {
+          callback(response);
+        }
+      },
+      error: function(response) {
+        console.error(response);
+      }
+    });
+  };
+
+  var guardarDisponibilidad = function(horario) {
+    var data = {data: JSON.stringify(horario)};
+    $.ajax({
+      data: data,
+      url: 'php/disponibilidad_horaria.php',
+      type: 'post',
+      success: function (response) {
+        console.log(response);
+        $('.alert').show();
+        location.href='Lista_Sucursales.html'
+      },
+      error: function(response) {
+        console.error(response);
       }
     });
   };

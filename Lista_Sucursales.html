@@ -52,21 +52,21 @@
           <hr width=50%>
           <div class="row">
               <div class="col-11">
-                <b><i class="fas fa-clock"></i> Horarios</b> <button class="btn btn-sm" data-toggle="collapse" data-target="#demo"><i class="fas fa-chevron-down"></i></button>
-                <div id="demo" class="collapse">
+                <b><i class="fas fa-clock"></i> Horarios</b> <button class="btn btn-sm" data-toggle="collapse" rv-data-target="info.ID_RES | formatearId '#contenedor-horarios-'"><i class="fas fa-chevron-down"></i></button>
+                <div rv-id="info.ID_RES | formatearId 'contenedor-horarios-'" class="collapse">
                 <ul>
                   <li rv-each-horario="info.dias">
                     <b>{horario.nombre}:</b>
                     <ul rv-each-rango="horario.rangos">
-                      <b>De: </b> {rango.de} 
-                      <b>a: </b> {rango.a}
+                      <b>De: </b> {rango.desde | formatearHora} 
+                      <b>a: </b> {rango.hasta | formatearHora}
                     </ul>
                   </li>
                 </ul>
                 </div>
               </div>
               <div class="col-1 icon_der">
-                <a href="DisponibilidadHoraria.html" rv-on-click="eventos.borrarDiaCerrado"><i class="fas fa-edit"></i></a>
+                <a rv-href="info.ID_RES | formatearLinkDisponibilidadHoraria" rv-on-click="eventos.borrarDiaCerrado"><i class="fas fa-edit"></i></a>
               </div>
           </div>
           <div class="row">

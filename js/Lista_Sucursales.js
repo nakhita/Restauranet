@@ -1,5 +1,14 @@
 $(function() {
   var restaurantes;
+  var DIAS = {
+    1: "Lunes",
+    2: "Martes",
+    3: "Miercoles",
+    4: "Jueves",
+    5: "Viernes",
+    6: "Sabado",
+    7: "Domingo"
+  };
   var info = {
     id:1,
     nombre: "",
@@ -139,8 +148,13 @@ $(function() {
       type: 'get',
       success : function(response) {
         restaurantes = response;
-        $.each(restaurantes, function(ix, el) {
-          el.dias = info.dias;
+        $.each(restaurantes, function(ix, restaurante) {
+          obtenerDisponibilidad(restaurante.ID_RES, function(horario) {
+            restaurante.dias = horario.dias;
+            $.each(restaurante.dias, function(ixDia, dia){
+              dia.nombre = DIAS[dia.id];
+            });
+          });
         });
         agregarBindeo();
       },
@@ -159,6 +173,21 @@ $(function() {
     rivets.formatters.formatearLinkCancelarDisponibilidad = function(id) {
       return "CancelarDisponibilidad.html?id="+id;
     };
+    rivets.formatters.formatearLinkDisponibilidadHoraria = function(id) {
+      return "DisponibilidadHoraria.html?id="+id;
+    };
+    rivets.formatters.formatearHora = function(value) {
+      var horas = Math.floor(value / 100);
+      var minutos = Math.floor(value % 100);
+      
+      if(horas < 10) { horas = '0' + horas; }
+      if(minutos < 10) { minutos = '0' + minutos; }
+      
+      return horas + ':' + minutos;
+    };
+    rivets.formatters.formatearId = function(id, prefijo) {
+      return prefijo + id;
+    };
     m_vista = rivets.bind($('#lista_sucursal'), {
       restaurantes: restaurantes,
       eventos: eventos
@@ -167,11 +196,40 @@ $(function() {
   
   var eventos = {
     borrar: function(e,el){
-      if(confirm("Desea borrar sucursal?")){
-        location.href= "php/lista_sucursales_borrar.php?id="+el.info.ID_RES;  
-      };
+        if(confirm("Desea borrar sucursal?")){
+          $.ajax({
+            url: 'php/lista_sucursales_borrar.php?id='+el.info.ID_RES,
+            type: 'get',
+            success: function (response) {
+              console.log(response);
+              
+                location.href= "Lista_Sucursales.html";
+              
+            },
+            error: function(response) {
+              console.error(response);
+            }
+          
+        });
+      }
     }
-    
   }
+  
+  var obtenerDisponibilidad = function(id, callback) {
+    $.ajax({
+      url: 'php/obtener_disponibilidad.php?id='+id,
+      type: 'get',
+      success: function (response) {
+        console.log(response);
+        if(callback) {
+          callback(response);
+        }
+      },
+      error: function(response) {
+        console.error(response);
+      }
+    });
+  };
+  
   principal();
 });

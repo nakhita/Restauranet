@@ -11,9 +11,9 @@
     </div>
   </div>-->
   <nav class="navbar fixed-top" role="navigation">
-          <div class="row">
+          <div id="cabecera_cuerpo" class="row">
                 <div class="col-md-8 col-sm-1 col-1" id="menu-titulo">
-                   <a class="navbar-brand" href="#"><div id="titulo">Restauranet <img id="logo" src="img/Logo.png"></div></a>
+                   <a class="navbar-brand" href="index.html"><div id="titulo">Restauranet <img id="logo" src="img/Logo.png"></div></a>
                 </div>
                 <ul id="menu-contenedor" class="menu_completo col-md-4 col-sm-11 col-11">
                    <li class="submenu">
@@ -44,7 +44,7 @@
                     </b>
                     <button class="dropbtn"><i class="fas fa-sort-down"></i></button>
                     <div class="dropdown-content">
-                      <a href="#"><span><i class="fas fa-concierge-bell"></i> </span>Reservas</a>
+                      <a href="#" rv-on-click="eventos.redireccion_reservas_cliente"><span><i class="fas fa-concierge-bell"></i> </span>Reservas</a>
                       <a href="#"><span><i class="far fa-file-alt"></i></span> Historial</a>
                       <a href="#" id="out_cliente"><span><i class="fas fa-sign-in-alt"></i> </span>Cerrar Sesión</a>
                     </div>

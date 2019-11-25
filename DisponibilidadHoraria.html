@@ -47,11 +47,11 @@
             <div rv-id="rango.id | formatoId dia.nombre" class="row dia-seleccionado" rv-each-rango="dia.rangos">
               <div class="col-4 form-inline" rv-id="rango | formatoRangoId 'contenedor-desde'">
                 <label class="control-label">Desde</label>
-                <input rv-id="rango | formatoRangoId 'rango'" rv-on-change="eventos.actualizarDesde" type="text" class="form-control timepicker desde">
+                <input rv-id="rango | formatoRangoId 'rango'" rv-data-hora="rango.desde" rv-on-change="eventos.actualizarDesde" type="text" class="form-control timepicker desde">
               </div>
               <div class="col-4 form-inline" rv-id="rango | formatoRangoId 'contenedor-hasta'">
                 <label class="">Hasta</label>
-                <input rv-on-change="eventos.actualizarHasta" type="text" class="form-control timepicker hasta">
+                <input rv-data-hora="rango.hasta" rv-on-change="eventos.actualizarHasta" type="text" class="form-control timepicker hasta">
               </div>
               <div rv-show="dia.rangos | listaMayorA 1" class=" col-4 form-inline">
                 <a href="#" class="icon-borrar" rv-on-click="eventos.borrarRango">

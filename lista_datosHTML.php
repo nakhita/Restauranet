@@ -29,7 +29,7 @@
      <div id="cabecera">
      </div>
       <div class="contenedor-fondo container">
-      <?php include('php/mostrar_reservas.php');?>
+      <?php include('php/listar_datos.php');?>
       </div>
     </div>
     <script href="js/prefixfree.min.js"></script>
