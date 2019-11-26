@@ -1,7 +1,6 @@
 $("#cabecera").load("cabecera.html");
 var handleClientLoad;
-$(function() {
-  
+
   var apiKey = 'AIzaSyA12-q_oCeZXMNUt9ilB8H2Q7k0vp2NRBw';
   var discoveryDocs = ["https://people.googleapis.com/$discovery/rest?version=v1"];
   var clientId = '944325708271-n0om1a6gmnnbsfjq27mi9gcor7h50f8m.apps.googleusercontent.com';
@@ -18,6 +17,10 @@ $(function() {
   var name_res={};
   var m_vista={};
   var usuario={};
+  var lista_pag_cliente=["Formulario_crear_reserva.php","index_buscar_reserva"];
+  var lista_pag_res=["Agregar_sucursal.html","CancelarDisponibilidad.html","DisponibilidadHorario.html","index_mostrar_reservas.php","Lista_Sucursales.html"];
+  var lista_pag_todos = ["index.php","lista_datosHTML.html"];
+  
   var roles = {
     RESTAURANTE: 1,
     USUARIO : 2
@@ -169,8 +172,6 @@ var agregarBindeo = function() {
     el.style.display= 'none';
   };
   
-});
-
 var googleAPILoaded = function() {
   handleClientLoad();
 };
