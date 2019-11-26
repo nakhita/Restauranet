@@ -10,7 +10,7 @@ function conectar_con(){
     $con=mysqli_connect($server,$user,$pass,$db);
     
     if(!$con){
-        echo "<h2>Error al conectar a la base de  datos </h2>";
+      $con->error;
     }
     
     return $con;
