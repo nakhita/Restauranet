@@ -1,27 +1,42 @@
 $("#cabecera").load("cabecera.html");
 var handleClientLoad;
-$(function() {
-  
+
   var apiKey = 'AIzaSyA12-q_oCeZXMNUt9ilB8H2Q7k0vp2NRBw';
   var discoveryDocs = ["https://people.googleapis.com/$discovery/rest?version=v1"];
   var clientId = '944325708271-n0om1a6gmnnbsfjq27mi9gcor7h50f8m.apps.googleusercontent.com';
   var scopes = 'profile';
-  var authorizeButton = {};
-  var signoutButton = {};
-  var btn_logeo={};
-  var btn_logout={};
+  var login_res = {};
+  var login_cliente = {};
+  var btn_salir_res = {};
+  var btn_salir_cliente = {};
+  var btn_reservas_cliente = {};
+  var menu_logeo={};
+  var menu_logout_res={};
+  var menu_logout_cliente={};
   var name_user={};
-  var btn_agregar={};
-  var roles = {
-    USUARIO : 2,
-    RESTAURANTE: 1
-  };
-  var rol = roles.USUARIO;
+  var name_res={};
+  var m_vista={};
+  var usuario={};
+  var lista_pag_cliente=["Formulario_crear_reserva.php","index_buscar_reserva"];
+  var lista_pag_res=["Agregar_sucursal.html","CancelarDisponibilidad.html","DisponibilidadHorario.html","index_mostrar_reservas.php","Lista_Sucursales.html"];
+  var lista_pag_todos = ["index.php","lista_datosHTML.html"];
   
+  var roles = {
+    RESTAURANTE: 1,
+    USUARIO : 2
+  };
+
   handleClientLoad = function() {
-    authorizeButton = document.getElementById('authorize-button');
-    signoutButton = document.getElementById('signout-button');
-    btn_logeo=document.getElementById('menu-contenedor'); btn_logout=document.getElementById('menu_logueado'); name_user=document.getElementById('usuario');
+    login_res = document.getElementById('login_res');
+    login_cliente = document.getElementById('login_cliente');
+    btn_salir_res = document.getElementById('out_res');
+    btn_salir_cliente = document.getElementById('out_cliente');
+    btn_reservas_cliente = document.getElementById('redireccion_reservas_cliente');
+    menu_logeo=document.getElementById('menu-contenedor');
+    menu_logout_res=document.getElementById('menu_logueado_rest'); 
+    menu_logout_cliente=document.getElementById('menu_logueado_cliente'); 
+    name_res=document.getElementById('usuario');
+    name_user=document.getElementById('usuario1');
     gapi.load('auth2', initClient);
   };
 
@@ -35,16 +50,50 @@ $(function() {
     });
     rol = roles.RESTAURANTE;
     refrescarSesion(function() {
-      auth2.attachClickHandler('authorize-button', {}, onSuccess, onFailure);
-      signoutButton.onclick = handleSignoutClick;
+      auth2.attachClickHandler('login_res', {}, function(user) {
+        onSuccess(user, roles.RESTAURANTE);
+      }, onFailure);
+      auth2.attachClickHandler('login_cliente', {}, function(user) {
+        onSuccess(user, roles.USUARIO);
+      }, onFailure);
+      btn_salir_res.onclick = handleSignoutClick;
+      btn_salir_cliente.onclick = handleSignoutClick;
+      agregarBindeo();
+      
     });
   };
   
-  var onSuccess = function(user) {
-    loguear(user.getBasicProfile().getName(), user.getBasicProfile().getEmail(), function(){
+var eventos =  {
+  redireccion_reservas_cliente: function(){ 
+    location.href = "index_buscar_reserva.php?id="+usuario.id;
+  }
+}
+
+var agregarBindeo = function() {
+    rivets.configure({
+      prefix: 'rv',
+      preloadData: true,
+      rootInterface: '.',
+      templateDelimiters: ['{', '}'],
+      iterationAlias : function(modelName) {
+        return '%' + modelName + '%';
+      },
+      handler: function(target, event, binding) {
+        this.call(target, event, binding.view.models)
+      },
+      executeFunctions: false
+    });
+    m_vista = rivets.bind($('#cabecera_cuerpo'), {
+        eventos: eventos
+    });
+    rivets.formatters.redireccion_reservas_cliente2 = function() {
+      return "index_buscar_reserva.php?id="+usuario.id;
+    };
+}
+  var onSuccess = function(user, rol) {
+    loguear(user.getBasicProfile().getName(), user.getBasicProfile().getEmail(), rol, function(){
       refrescarSesion();
     });
-    
   };
 
   
@@ -54,25 +103,25 @@ $(function() {
   
   var handleSignoutClick = function(event) {
     $.ajax({
-      url: 'php/logout.php',
-      type: 'get',
-      success:  function (response) {
+      url: 'php/logout.php',
+      type: 'get',
+      success:  function (response) {
         location.reload();
       }
     });
   };
   
-  var loguear = function(nombre,email, callback) {
+  var loguear = function(nombre,email,rol,callback) {
     var parametros = {
       nombre: nombre,
       email: email,
       rol: rol
     };
     $.ajax({
-      data: parametros,
-      url: 'php/login.php',
-      type: 'post',
-      success: function (response) {
+      data: parametros,
+      url: 'php/login.php',
+      type: 'post',
+      success: function (response) {
         console.log(response);
         if(callback){
           callback();
@@ -90,21 +139,24 @@ $(function() {
       type: 'get',
       success : function(response){
         if(response) {
-          var usuario=JSON.parse(response);
-          /*authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';*/
-          btn_logeo.style.display = 'none';
-          btn_logout.style.display = 'block';
-          name_user.innerHTML = usuario.nombre;
-        } else {
-          authorizeButton.style.display = 'block';
-          signoutButton.style.display = 'none';
-          btn_logeo.style.display = 'block';
-          btn_logout.style.display = 'none';
-         /*if(window.location.pathname.indexOf("Pantalla_principal") == -1  ) {
-           location.href = "Pantalla_principal.html";
-          }*/
+          usuario=JSON.parse(response);
+          ocultar(menu_logeo);
           
+          if(usuario.rol==1){
+            name_res.innerHTML = usuario.nombre;  
+            mostrar(menu_logout_res);
+            ocultar(menu_logout_cliente);
+          }
+          else{
+            name_user.innerHTML = usuario.nombre;  
+            mostrar(menu_logout_cliente);
+            ocultar(menu_logout_res);
+          }
+          
+        } else {
+          mostrar(menu_logeo);
+          ocultar(menu_logout_res);
+          ocultar(menu_logout_cliente);
         }
         if(callback) {
           callback();
@@ -113,12 +165,13 @@ $(function() {
     });
   };
   
-});
-
+  var mostrar = function(el) {
+    el.style.display = 'block';
+  };
+  var ocultar = function(el){
+    el.style.display= 'none';
+  };
+  
 var googleAPILoaded = function() {
   handleClientLoad();
 };
-
-
-
-
