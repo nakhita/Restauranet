@@ -28,10 +28,11 @@
 	<div class="container">
      <div id="cabecera">
      </div>
-      <div class="contenedor-fondo container">
-        <nav class="contenedor_items_2 nav navbar">
-          <a class="row navbar-brand">
-              <h2 class="titulo_contenedor_item col-12" >Ingrese Nombre de Restaurante, Localidad o Provincia!</h2>
+      <div class="row contenedor-fondo container">
+        <br><br>
+         <nav class="contenedor_items_2 nav navbar text-center">
+          <a class="row navbar-brand " >
+              <h2 class="titulo_contenedor_item col-md-6 col-12" >Ingrese Nombre de Restaurante,<br> Localidad o Provincia!</h2>
           </a><br>
           <form class="row form-inline form_contenedor_index" method="post" action="lista_datosHTML.php">
              <div class="col-1"></div>

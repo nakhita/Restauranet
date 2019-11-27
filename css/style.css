@@ -35,7 +35,10 @@ nav {
     height: 100%;
     background-attachment: fixed;
 }
-
+.text-center{
+  text-align: center;
+  align-content: center;
+}
 .icon_der{
   text-align: right !important;
 }
@@ -225,6 +228,9 @@ i {
   margin-top: 100px; 
   width: 100%;
  
+}
+.img_calendario{
+  width: 100%;
 }
 img_a{
   height: 40%;

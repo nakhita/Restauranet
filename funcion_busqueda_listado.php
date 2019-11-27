@@ -20,8 +20,8 @@
 <body>	
 	<nav class="navbar navbar">
 		<a class="navbar-brand"><h5>Ingrese Nombre de Restaurante, Localidad o Provincia</h5></a>
-		<form class="form-inline" method="post" action="lista_datosHTML.php">
-			<input type="text" name="datos" id="busqueda" class="form-control mr-sm-2 border-primary"  placeholder="Busca por Nombre de restaurante, localidad , zona!" autocomplete="off" maxlength="20" aria-label="Search">
+		<form class="form-inline" method="post" action="php/listar_datos.php">
+			<input type="text" name="datos" id="busqueda" class="form-control mr-sm-2 border-primary"  placeholder="Data" autocomplete="off" maxlength="20" aria-label="Search">
 			<button class="btn btn-info my-2 my-sm-0" name="buscar" type="submit">Buscar</button>
 		</form>
 	</nav><br>
@@ -32,14 +32,14 @@
  <?php
 echo "<h1>Restaurantes</h1>";
 	require 'php/conexion_bd.php';
-	$result_resto = "SELECT * FROM restaurante";
+	$result_resto = "SELECT * FROM restaurant";
 	$resultado_restaurant = mysqli_query($mysqli, $result_resto);
 	while($row_rest = mysqli_fetch_array($resultado_restaurant)){
-		$idrestaurant=$row_rest['ID_RES'];
-		echo "<b>Nombre:</b> ".$row_rest['nombre']."<br>";
-        echo "<b>Telefono:</b> ".$row_rest['telefono']."<br>";
-		echo "<b>Email:</b> ".$row_rest['email']."<br>";
-		?>
+		$idrestaurant=$row_rest['idrestaurant'];
+		echo "Nombre: ".$row_rest['nombre']."<br>";
+		echo "Email: ".$row_rest['email']."<br>";
+		echo "Telefono: ".$row_rest['telefono']."<br>";
+		echo "Descripcion: ".$row_rest['descripcion']."<br>";?>
 		<form method="POST" id="form_eliminar_<?php echo $idrestaurant; ?>" action="ver_restaurant.php">
                             <input type="hidden" name="ver" value="<?php echo $idrestaurant; ?>"  />
                             <input type="submit" value="Ver Mas" class="btn btn-success">

@@ -1,11 +1,12 @@
 <?php
 
-$connect = mysqli_connect("localhost", "root", "", "restauranet");
-$request = mysqli_real_escape_string($connect, $_POST["query"]);
+include("conexion_bd.php");
+//$con = mysqli_connect("localhost", "root", "", "restauranet");
+$request = mysqli_real_escape_string($mysqli, $_POST["query"]);
 $query = "SELECT R.nombre, D.localidad, D.provincia FROM restaurante R INNER JOIN direccion D on R.ID_RES=D.ID_DIR
-WHERE nombre LIKE '%".$request."%' OR localidad LIKE '%".$request."%' OR provincia LIKE '%".$request."%'";
+WHERE R.nombre LIKE '%".$request."%' OR D.localidad LIKE '%".$request."%' OR D.provincia LIKE '%".$request."%'";
 
-$result = mysqli_query($connect, $query);
+$result = mysqli_query($mysqli, $query);
 
 $data = array();
 

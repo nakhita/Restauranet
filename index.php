@@ -68,7 +68,7 @@
      $.ajax({
       url:"php/autocompletado.php",
       method:"POST",
-      data:{query:query},
+      data:{query: query },
       dataType:"json",
       success:function(data)
       {
