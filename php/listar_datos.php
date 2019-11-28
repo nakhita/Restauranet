@@ -12,7 +12,7 @@ echo '<br><fieldset class="border p-3"><div class="arrow">
 while($row = mysqli_fetch_assoc($result))
 {
   ?>
-        <fieldset class="border p-3">
+        <fieldset class="col-12 border p-3">
           <div class="row">
             <div class="col-9">
             <br>
