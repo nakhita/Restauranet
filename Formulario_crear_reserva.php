@@ -1,5 +1,7 @@
 <?php
 	session_start();
+
+$idrestaurant=$_GET['id'];
 ?>
 
 <!doctype html>
@@ -37,7 +39,7 @@
             <a class="col-1" href="Pantalla_principal.html" target="_blank"></a>
             <form method="POST" id="form_ver_rest_<?php echo $idrestaurant; ?>" action="ver_restaurant.php">
             <input  type="hidden" name="ver" value="<?php echo $idrestaurant; ?>"  />
-            <a href="index.html">
+            <a href="lista_datosHTML.php">
              <i class="fas fa-arrow-left"></i>
             </a>
             </form>
@@ -50,7 +52,8 @@
                 unset($_SESSION['msg']);
             }
             ?>
-              <form class="form-horizontal" action="php/crear_reserva" method="POST">
+              <form class="form-horizontal" action="php/crear_reserva.php" method="POST">
+                 <input  type="hidden" name="id" value="<?php echo $idrestaurant; ?>"  />
                   <div class="form-group" >
                      <br><br>
                      <div class="row">

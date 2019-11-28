@@ -4,7 +4,7 @@ include("conexion_bd.php");
 if(isset($_POST['buscar'])){
 	
 	$datos=htmlentities($_POST['datos']	);
-	$query = "SELECT R.nombre, D.nombreCalle,R.telefono, D.numero, D.localidad, D.provincia FROM restaurante R INNER JOIN direccion D on R.ID_RES=D.ID_DIR
+	$query = "SELECT R.ID_RES,R.nombre, D.nombreCalle,R.telefono, D.numero, D.localidad, D.provincia FROM restaurante R INNER JOIN direccion D on R.ID_RES=D.ID_DIR
 	WHERE nombre LIKE '%".$datos."%' OR localidad LIKE '%".$datos."%' OR provincia LIKE '%".$datos."%' ";
 $result = mysqli_query($mysqli/*$connect*/, $query);
 echo '<br><fieldset class="border p-3"><div class="arrow">
@@ -17,6 +17,7 @@ while($row = mysqli_fetch_assoc($result))
             <div class="col-9">
             <br>
   <?php
+        $idrestaurant = $row['ID_RES'];
         echo '<b><i class="fas fa-concierge-bell"></i> Nombre: </b>    '.$row['nombre']."<br><br>";
         echo '<b><i class="fas fa-phone-alt"></i> Telefono: </b>    '.$row['telefono']."<br><br>";
 		echo '<b><i class="fas fa-map-marker-alt"></i> Dirección: </b> '.$row['nombreCalle'].' '.$row['numero'].' , '.$row['localidad'].' , '.$row['provincia']."<br><br>";
@@ -25,9 +26,9 @@ while($row = mysqli_fetch_assoc($result))
        </div>
         <div class="col-3" method="POST" id="form_ver_rest_<?php echo $idrestaurant; ?>">
           <br><br>
-          <a href="Formulario_crear_reserva.php" value="Reservar Ya" class="boton btn">Reservar</a>
+          <a href="Formulario_crear_reserva.php?id=<?php echo $idrestaurant; ?>" value="Reservar Ya" class="boton btn">Reservar</a>
           <br>
-          <a name="ver" href="ver_restaurant.php" class="boton btn" value="<?php echo $idrestaurant; ?>">Ver más</a>
+          <a name="ver" href="ver_restaurant.php?id=<?php echo $idrestaurant; ?>" class="boton btn" value="<?php echo $idrestaurant; ?>">Ver más</a>
        </div>
        </div>
        </fieldset>

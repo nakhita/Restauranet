@@ -49,7 +49,6 @@
                 <a href="#" rv-on-click="eventos.borrar"><i class="fas fa-trash-alt"></i></a>
               </div>
           </div>
-          <hr width=50%>
           <div class="row">
               <div class="col-11">
                 <b><i class="fas fa-clock"></i> Horarios</b> <button class="btn btn-sm" data-toggle="collapse" rv-data-target="info.ID_RES | formatearId '#contenedor-horarios-'"><i class="fas fa-chevron-down"></i></button>
@@ -69,9 +68,18 @@
                 <a rv-href="info.ID_RES | formatearLinkDisponibilidadHoraria" rv-on-click="eventos.borrarDiaCerrado"><i class="fas fa-edit"></i></a>
               </div>
           </div>
+          <hr width=50%>
           <div class="row">
               <div class="col-11">
-                <b><i class="fas fa-times-circle"></i> Dias cerrados</b>
+                <b><i class="fas fa-concierge-bell"></i> Reservas </b>
+              </div>
+              <div class="col-1 icon_der">
+                <a href="#" rv-on-click="eventos.formatearLinkReservas"><i class="fas fa-sign-in-alt"></i></a>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-11">
+                <b><i class="fas fa-calendar-times"></i> Dias cerrados</b>
               </div>
               <div class="col-1 icon_der">
                 <a rv-href="info.ID_RES | formatearLinkCancelarDisponibilidad "><i class="fas fa-sign-in-alt"></i></a>

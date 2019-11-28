@@ -52,6 +52,7 @@ if ($filas > 0) {
     } else {
       
       $usuario_sesion = new stdClass;
+      $id = $stmt->insert_id;
       $usuario_sesion->id = $id;
       $usuario_sesion->nombre = $nombre;
       $usuario_sesion->email = $email;

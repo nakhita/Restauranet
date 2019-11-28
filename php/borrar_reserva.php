@@ -5,7 +5,7 @@
     $idreserva = $_POST['eliminar'];
 
     //CON ESE ID DE RESERVA HAGO UNA QUERY A LA BD PARA OBTENER EL ID DE CLIENTE
-   	$result_reservas = "SELECT * FROM reservas WHERE idreservas=$idreserva";
+   	$result_reservas = "SELECT * FROM reservas WHERE idreserva=$idreserva";
 	$resultado_reservas = mysqli_query($mysqli, $result_reservas);
 	$row_reservas = mysqli_fetch_array($resultado_reservas);
 	$idcliente=$row_reservas['idcliente'];
@@ -16,13 +16,13 @@
 	$cantidad=$row_reservas['cantidad_personas'];
 
 	//YA CON EL ID DE CLIENTE SOLO QUEDA OBTENER SU MAIL PARA PODER ENVIARLE LA NOTIFICACION
-	$result_reservas = "SELECT * FROM cliente WHERE idcliente=$idcliente";
+	$result_reservas = "SELECT * FROM usuario WHERE ID_US=$idcliente";
 	$resultado_reservas = mysqli_query($mysqli, $result_reservas);
 	$row_reservas = mysqli_fetch_array($resultado_reservas);
 	$email=$row_reservas['email'];
 	
 	//YA CON LOS DATOS NECESARIOS HAGO EFECTIVAMENTE LA BAJA DE LA RESERVA
-	$result_reservas = "DELETE FROM reservas WHERE idreservas=$idreserva";
+	$result_reservas = "DELETE FROM reservas WHERE idreserva=$idreserva";
 	$resultado_reservas = mysqli_query($mysqli,$result_reservas);
 
 		use PHPMailer\PHPMailer\PHPMailer;
@@ -51,14 +51,15 @@
 	    // Content
 	    $mail->isHTML(true);                                  // Set email format to HTML
 	    $mail->Subject = 'Reserva Cancelada';
-	    $mail->Body    = 'Hola se ha dado la baja de su reserva para la fecha '.$fecha ." a las ".$hora ." para ".$cantidad .".Ojala pueda utilizar nuestro servicio una vez mas. Gracias de todas formas!";
+	    $mail->Body    = 'Hola! Se ha dado la baja de su reserva para la fecha '.$fecha ." a las ".$hora ." para ".$cantidad ." persona(s). Ojala pueda utilizar nuestro servicio una vez mas. Gracias de todas formas!";
 	    
 	    $mail->send();
-	    echo 'El mensaje se envio correctamente';
+	    $_SESSION['msg']= "<div class='alert alert-success'>Se le ha enviado un correo electronico notificando su cancelación</div>";
+		header("Location: ../index_buscar_reserva.php");
 	} catch (Exception $e) {
-	    echo "Hubo un error al enviar el mensaje: {$mail->ErrorInfo}";
+        $_SESSION['msg']= "<div class='alert alert-danger'>Hubo un error al enviar el mensaje: {$mail->ErrorInfo}</div>";
+		header("Location: ../index_buscar_reserva.php");
 		}		 	  
-	 
 ?>
 
 	 

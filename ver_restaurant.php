@@ -1,6 +1,7 @@
 <?php
 require 'php/conexion_bd.php';
-$idrestaurant=$_POST["ver"];
+
+$idrestaurant=$_GET["id"];
 //GUARDO EL ID DE RESTAURANT EN UNA VARIABLE
 
 //OBTENGO EL RESTAURANTE SELECCIONADO
@@ -60,7 +61,7 @@ $id_dir=$row_rest['ID_RES'];
           $row_rest = mysqli_fetch_array($resultado_restaurant);
 
           //YA CON LOS DATOS OBTENIDOS SOLO QUEDA MOSTRARLOS POR PANTALLA
-          echo "<b>Direccion:</b> ".$row_rest['direccion']."<br>";
+          echo "<b>Direccion:</b> ".$row_rest['nombreCalle'].",".$row_rest['numero']."<br>";
           echo "<b>Localidad:</b> ".$row_rest['localidad']."<br>";
           echo "<b>Provincia:</b> ".$row_rest['provincia']."<br>";
           
@@ -74,7 +75,7 @@ $id_dir=$row_rest['ID_RES'];
            <img class="img_calendario" src="img/calendario.png" alt="">  
          </div>
          <br>
-          <a href="Formulario_crear_reserva.php" value="Reservar Ya" class="boton btn">Reservar</a>
+          <a href="Formulario_crear_reserva.php?id=<?php echo $idrestaurant; ?>" value="Reservar Ya" class="boton btn">Reservar</a>
           <br>
         </div>
         <!--<form method="POST" id="form_ver_rest_<?//php echo $idrestaurant; ?>" action="Formulario_crear_reserva.php">

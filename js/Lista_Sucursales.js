@@ -212,6 +212,9 @@ $(function() {
           
         });
       }
+    },
+    formatearLinkReservas: function(e,el){ 
+      location.href = "index_mostrar_reservas.php?id="+el.info.ID_RES;
     }
   }
   

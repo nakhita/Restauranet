@@ -1,4 +1,4 @@
-$("#cabecera").load("cabecera.html");
+
 var handleClientLoad;
 $(function() {
   
@@ -28,17 +28,19 @@ $(function() {
   };
 
   handleClientLoad = function() {
-    login_res = document.getElementById('login_res');
-    login_cliente = document.getElementById('login_cliente');
-    btn_salir_res = document.getElementById('out_res');
-    btn_salir_cliente = document.getElementById('out_cliente');
-    btn_reservas_cliente = document.getElementById('redireccion_reservas_cliente');
-    menu_logeo=document.getElementById('menu-contenedor');
-    menu_logout_res=document.getElementById('menu_logueado_rest'); 
-    menu_logout_cliente=document.getElementById('menu_logueado_cliente'); 
-    name_res=document.getElementById('usuario');
-    name_user=document.getElementById('usuario1');
-    gapi.load('auth2', initClient);
+    $("#cabecera").load("cabecera.html", function() {
+      login_res = document.getElementById('login_res');
+      login_cliente = document.getElementById('login_cliente');
+      btn_salir_res = document.getElementById('out_res');
+      btn_salir_cliente = document.getElementById('out_cliente');
+      btn_reservas_cliente = document.getElementById('redireccion_reservas_cliente');
+      menu_logeo=document.getElementById('menu-contenedor');
+      menu_logout_res=document.getElementById('menu_logueado_rest'); 
+      menu_logout_cliente=document.getElementById('menu_logueado_cliente'); 
+      name_res=document.getElementById('usuario');
+      name_user=document.getElementById('usuario1');
+      gapi.load('auth2', initClient);
+    });
   };
 
   var initClient = function() {
@@ -64,13 +66,17 @@ $(function() {
     });
   };
   
-var eventos =  {
+/*var eventos =  {
   redireccion_reservas_cliente: function(){ 
     location.href = "index_buscar_reserva.php?id="+usuario.id;
   }
-}
+}*/
 
 var agregarBindeo = function() {
+  if(usuario && usuario.id) {
+    document.getElementById("reservas-cliente").href="index_buscar_reserva.php?id="+usuario.id;
+  }
+  /*
     rivets.configure({
       prefix: 'rv',
       preloadData: true,
@@ -90,7 +96,9 @@ var agregarBindeo = function() {
     rivets.formatters.redireccion_reservas_cliente2 = function() {
       return "index_buscar_reserva.php?id="+usuario.id;
     };
-}
+    */
+  };
+
   var onSuccess = function(user, rol) {
     loguear(user.getBasicProfile().getName(), user.getBasicProfile().getEmail(), rol, function(){
       refrescarSesion();
@@ -107,7 +115,7 @@ var agregarBindeo = function() {
       url: 'php/logout.php',
       type: 'get',
       success:  function (response) {
-        location.reload();
+        location.href="index.php";
       }
     });
   };
@@ -175,6 +183,17 @@ var agregarBindeo = function() {
   
 });
 
-var googleAPILoaded = function() {
-  handleClientLoad();
+
+var revisarFuncion = function () {
+  console.log("revisando ...");
+  if (handleClientLoad == undefined) {
+    window.setTimeout(revisarFuncion, 100);
+  } else {
+    handleClientLoad();
+  }
 };
+
+var googleAPILoaded = function() {
+  revisarFuncion();
+};
+

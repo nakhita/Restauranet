@@ -2,7 +2,19 @@
 	//session_start();
 	//conexion con base de datos
 	include_once("conexion_bd.php");
-    $idcliente = $_GET["id"];
+    include("sesion.php");
+
+    if(isset($_POST["idUsuario"])) {
+      $idcliente = $_POST["idUsuario"];
+    } else {
+      $usuario = obtener_usuario();
+      if($usuario) {
+        $idcliente = $usuario->id;
+      } else {
+        echo 'error';
+        return;
+      }
+    }
 	//ID DE CLIENTE QUE HAY QUE CAMBIARLO ESTA SETEADO XQ NO LO PUEDO TRAER DE LA SESSION DEL INICIO DE SESION
 	
 	/*echo "<h1>Lista de Reservas para hoy</h1>";
@@ -13,11 +25,13 @@
 		echo "idcliente: ".$row_reservas['idcliente']."<br>";
 		echo "fecha: ".date('d/m/Y', strtotime($row_horarios['fecha']))."<hr>";
 	}*/
-	
+
 	echo '<h1 class="titulitos"><i class="fas fa-list"></i> Lista de Reservas</h1><br><hr>';
-	
-	$result_reservas = "SELECT * FROM reservas INNER JOIN cliente ON reservas.idcliente = cliente.idcliente
-						WHERE reservas.idcliente=$idcliente";
+    if(isset($_SESSION['msg'])){
+        echo $_SESSION['msg'];
+        unset($_SESSION['msg']);
+    }
+	$result_reservas = "SELECT * FROM reservas WHERE idcliente=$idcliente ORDER BY fecha , hora";
 	$resultado_reservas = mysqli_query($mysqli, $result_reservas);
 	while($row_reservas = mysqli_fetch_array($resultado_reservas)){
 		$cliente=$row_reservas['idcliente'];
@@ -26,7 +40,7 @@
         echo '<b><i class="fas fa-clock"></i> Hora:</b> '.$row_reservas['hora']."<br>"."<br>";
 		echo '<b><i class="fas fa-users"></i> Cantidad de personas: </b>'.$row_reservas['cantidad_personas']."<br>";
 		?>
-		<form method="POST" id="form_eliminar_<?php echo $idreserva; ?>" action="borrar_reserva.php">
+		<form method="POST" id="form_eliminar_<?php echo $idreserva; ?>" action="php/borrar_reserva.php">
                             <br>
                             <input type="hidden" name="eliminar" value="<?php echo $idreserva; ?>"  />
                             <input type="submit" value="Cancelar Reserva" class="boton btn">
