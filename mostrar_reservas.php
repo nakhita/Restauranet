@@ -14,7 +14,7 @@
 	
 	echo "<h1>Lista de Reservas</h1>";
 	
-	$result_reservas = "SELECT nombre, email, fecha, hora, cantidad_personas FROM cliente RIGHT JOIN reservas ON reservas.idcliente = cliente.idcliente
+	$result_reservas = "SELECT nombre, email, fecha, hora, cantidad_personas FROM usuario RIGHT JOIN reservas ON reservas.idcliente = usuario.ID_US
 						WHERE fecha>=CURDATE()ORDER BY fecha ASC";
 	$resultado_reservas = mysqli_query($mysqli, $result_reservas);
 	

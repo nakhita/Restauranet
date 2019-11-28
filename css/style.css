@@ -217,6 +217,13 @@ i {
 .agregar{
     color:#959256;
 }
+#id01{
+  font-size: 18px;
+  position: fixed;
+  background: rgba(0,0,0,0.7);
+  top: 10%;
+
+}
 
 .agregar:hover{
   color:#959256;

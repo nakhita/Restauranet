@@ -93,7 +93,7 @@
             $('#mostrar').click(function(){
               $.ajax({
                 type:'GET', //aqui puede ser igual get
-                url: 'mostrar_reservasHtml.php?id='+<?php echo $id ; ?>,//aqui va tu direccion donde esta tu funcion php
+                url: 'mostrar_reservasHtml.php?id=<?php echo $id;?>',//aqui va tu direccion donde esta tu funcion php
                 data: {fechareservas:$('#datepicker').val()},//aqui tus datos
                 success:function(data){
                     $("#respa").html(data);//lo que devuelve tu archivo mifuncion.php

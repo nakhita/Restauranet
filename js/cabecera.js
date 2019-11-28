@@ -20,7 +20,7 @@ $(function() {
   var usuario={};
   var lista_pag_cliente=["Formulario_crear_reserva.php","index_buscar_reserva"];
   var lista_pag_res=["Agregar_sucursal.html","CancelarDisponibilidad.html","DisponibilidadHorario.html","index_mostrar_reservas.php","Lista_Sucursales.html"];
-  var lista_pag_todos = ["index.php","lista_datosHTML.html"];
+  var lista_pag_todos = ["index.php","lista_datosHTML.html","ver_restaurant.php"];
   
   var roles = {
     RESTAURANTE: 1,
@@ -62,6 +62,7 @@ $(function() {
       btn_salir_res.onclick = handleSignoutClick;
       btn_salir_cliente.onclick = handleSignoutClick;
       agregarBindeo();
+      console.log(usuario);
       
     });
   };
@@ -72,39 +73,68 @@ $(function() {
   }
 }*/
 
+
+  
 var agregarBindeo = function() {
+  var url = location.pathname;
+  var bandera="";
+  if(bandera= getParameterByName("modal")){
+    //var cliente= 'cliente';
+    //var restaurante = 'rest';
+    //var loguear = 'log';
+    if(bandera){
+      $(document).ready(function(){
+        $('#modal').click();
+        });
+    }
+  }
+  
   if(usuario && usuario.id) {
     document.getElementById("reservas-cliente").href="index_buscar_reserva.php?id="+usuario.id;
+    if(usuario.rol==1){
+      lista_pag_cliente.forEach((pag_cliente)=>{
+        if(url.includes(pag_cliente)){
+          location.href="index.php";
+        }
+      });
+    }
+    else{
+      lista_pag_res.forEach((pag_res)=>{
+        if(url.includes(pag_res)){
+          location.href="index.php";
+        }
+      });
+    }
   }
-  /*
-    rivets.configure({
-      prefix: 'rv',
-      preloadData: true,
-      rootInterface: '.',
-      templateDelimiters: ['{', '}'],
-      iterationAlias : function(modelName) {
-        return '%' + modelName + '%';
-      },
-      handler: function(target, event, binding) {
-        this.call(target, event, binding.view.models)
-      },
-      executeFunctions: false
+  else{
+    lista_pag_cliente.forEach((pag_cliente)=>{
+        if(url.includes(pag_cliente)){
+          bandera=true;
+          location.href="index.php?modal=1";
+         
+        }
     });
-    m_vista = rivets.bind($('#cabecera_cuerpo'), {
-        eventos: eventos
+    lista_pag_res.forEach((pag_res)=>{
+        if(url.includes(pag_res)){
+          bandera=true;
+          location.href="index.php?modal=1";
+        }
     });
-    rivets.formatters.redireccion_reservas_cliente2 = function() {
-      return "index_buscar_reserva.php?id="+usuario.id;
-    };
-    */
-  };
-
-  var onSuccess = function(user, rol) {
+  }
+}
+  
+var onSuccess = function(user, rol) {
     loguear(user.getBasicProfile().getName(), user.getBasicProfile().getEmail(), rol, function(){
       refrescarSesion();
     });
   };
-
+    
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
   
   var onFailure = function(error) {
     console.log(error);

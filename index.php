@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,user-scalabre=no, initial-scale=1, maximum-scale=1,minium-scale=1">
   <title>Restauranet</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="fonts/fuentes.css">
@@ -14,6 +15,22 @@
   <title>Principal</title>
 </head>
 <body class="principal-background">
+   <button id="modal" hidden="true" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black"></button>
+   <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+      <header class="w3-container w3-teal"> 
+        <a href="index.php" class="w3-button w3-display-topright"><i class="fas fa-times"></i></a>
+        <h2><i class="fas fa-exclamation-triangle"></i> Importante!</h2>
+      </header>
+      <div class="w3-container">
+       <br>
+        <p><b>Debe loguearse antes de realizar esa acción <br>Muchas gracias</b><br><br></p>
+      </div>
+      <footer class="w3-container w3-teal">
+        <h3>Restauranet</h3>
+      </footer> 
+    </div>
+  </div>
   <div>
      <div id="cabecera">
       </div>
