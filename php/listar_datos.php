@@ -7,12 +7,12 @@ if(isset($_POST['buscar'])){
 	$query = "SELECT R.ID_RES,R.nombre, D.nombreCalle,R.telefono, D.numero, D.localidad, D.provincia FROM restaurante R INNER JOIN direccion D on R.ID_RES=D.ID_DIR
 	WHERE nombre LIKE '%".$datos."%' OR localidad LIKE '%".$datos."%' OR provincia LIKE '%".$datos."%' ";
 $result = mysqli_query($mysqli/*$connect*/, $query);
-echo '<br><fieldset class="border p-3"><div class="arrow">
+echo '<br><fieldset class="col-12 border p-3"><div class="arrow">
       <legend class="sub-titulitos w-auto"><a class="col-1" onClick="javascript:window.history.back();" name="Submit" value="atras"><i class="fas fa-arrow-left"></i></a><h1 class="titulitos  col-11" style="text-align: center;"><i class="fas fa-utensils" ></i> Datos de los Restaurantes:</h1></legend></div>'.'<br>';
 while($row = mysqli_fetch_assoc($result))
 {
   ?>
-        <fieldset class="col-12 border p-3">
+        <fieldset class="border p-3">
           <div class="row">
             <div class="col-9">
             <br>
