@@ -3,7 +3,8 @@
 	//conexion con base de datos
 	include_once("php/conexion_bd.php");
 
-	$numeroReserva=$_GET['id'];
+	$numeroReserva=0;
+	
 	
 	
 	/*echo "<h1>Lista de Reservas para hoy</h1>";
@@ -25,7 +26,7 @@
           $fecha = date("Y-m-d", strtotime($_GET["fechareservas"]));
 
           $result_reservas = "SELECT U.nombres, R.fecha, R.hora, R.cantidad_personas FROM usuario U RIGHT JOIN reservas R ON R.idcliente = U.ID_US
-                          WHERE R.ID_RES=$numeroReserva AND fecha >= '$fecha' AND MONTH(fecha) = MONTH('$fecha') AND YEAR(fecha) = YEAR('$fecha') ORDER BY fecha ASC";
+                          WHERE R.ID_RES=$'$id' AND fecha >= '$fecha' AND MONTH(fecha) = MONTH('$fecha') AND YEAR(fecha) = YEAR('$fecha') ORDER BY fecha ASC";
 
           $resultado_reservas = mysqli_query($mysqli, $result_reservas);
 

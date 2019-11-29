@@ -20,7 +20,7 @@ $id_dir=$row_rest['ID_RES'];
 	<!-- Required meta tags -->
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,user-scalabre=no, initial-scale=1, maximum-scale=1,minium-scale=1">
-    <title>Cancelar Disponibilidad</title>
+    <title>Información del restaurante - Restauranet</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -76,6 +76,9 @@ $id_dir=$row_rest['ID_RES'];
          </div>
          <br>
           <a href="Formulario_crear_reserva.php?id=<?php echo $idrestaurant; ?>" value="Reservar Ya" class="boton btn">Reservar</a>
+          <br>
+           <br>
+          <!--<a href="lista_datosHTML.php?id=<?//php echo $idrestaurant; ?>" value="Atras" class="boton btn">Volver</a>-->
           <br>
         </div>
         <!--<form method="POST" id="form_ver_rest_<?//php echo $idrestaurant; ?>" action="Formulario_crear_reserva.php">

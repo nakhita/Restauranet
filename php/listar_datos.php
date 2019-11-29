@@ -26,15 +26,14 @@ while($row = mysqli_fetch_assoc($result))
        </div>
         <div class="col-3" method="POST" id="form_ver_rest_<?php echo $idrestaurant; ?>">
           <br><br>
-          <a href="Formulario_crear_reserva.php?id=<?php echo $idrestaurant; ?>" value="Reservar Ya" class="boton btn">Reservar</a>
+          <a href="Formulario_crear_reserva.php?id=<?php echo $idrestaurant; ?>" id="reservar" value="Reservar Ya" class="boton btn">Reservar</a>
           <br>
-          <a name="ver" href="ver_restaurant.php?id=<?php echo $idrestaurant; ?>" class="boton btn" value="<?php echo $idrestaurant; ?>">Ver más</a>
+          <a name="ver" href="ver_restaurant.php?id=<?php echo $idrestaurant; ?>" id="ver" class="boton btn" value="<?php echo $idrestaurant; ?>">Ver más</a>
        </div>
        </div>
        </fieldset>
       <br>
       <?php
-      
        echo '<hr width="50%">'.'<br>';
 }
 }

@@ -7,7 +7,7 @@
 	<!-- Required meta tags -->
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,user-scalabre=no, initial-scale=1, maximum-scale=1,minium-scale=1">
-    <title>Cancelar Disponibilidad</title>
+    <title>Busqueda - Restauranet</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -80,5 +80,6 @@
      });
 
     });
+    
     </script>
 </body>

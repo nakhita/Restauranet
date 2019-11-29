@@ -39,7 +39,7 @@ $idrestaurant=$_GET['id'];
             <a class="col-1" href="Pantalla_principal.html" target="_blank"></a>
             <form method="POST" id="form_ver_rest_<?php echo $idrestaurant; ?>" action="ver_restaurant.php">
             <input  type="hidden" name="ver" value="<?php echo $idrestaurant; ?>"  />
-            <a href="lista_datosHTML.php">
+            <a class="titulitos" href="lista_datosHTML.php">
              <i class="fas fa-arrow-left"></i>
             </a>
             </form>
@@ -80,6 +80,9 @@ $idrestaurant=$_GET['id'];
                  <div class="col-md-4"></div>
                   <div class="col-md-4 col-12">
                       <button type="submit" class="boton btn btn-block">Reservar</button><br><br>
+                        <br>
+                        <!--<a href="ver_restaurant.php?id=<?//php echo $idrestaurant; ?>" value="Atras" class="boton btn">Volver</a>-->
+                        <br>
                   </div>
                   </div>
               </div>
@@ -98,10 +101,14 @@ $idrestaurant=$_GET['id'];
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
         <script type="text/javascript">
               $(function () {
-                  $('#datetime').datetimepicker();
+                  $('#datetime').datetimepicker({
+					format: 'MM/DD/YYYY H:mm A',
+					minDate : new Date(),
+					useCurrent: true,
                   //$('#href_volver').click(function(){
                     //$('#btn_volver').click();
                   //})
+				  });
               });
 
         </script>

@@ -12,7 +12,6 @@
   <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
   <link rel="shortcut icon" href="images/icono.ico" />
   <script href="js/prefixfree.min.js"></script>
-  <title>Principal</title>
 </head>
 <body class="principal-background">
    <button id="modal" hidden="true" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black"></button>
