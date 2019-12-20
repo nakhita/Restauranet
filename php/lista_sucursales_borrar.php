@@ -49,37 +49,6 @@ if(!$ok){
 }
 $stmt->close();
 
-$sql= "DELETE FROM calificaciones WHERE idreserva IN (SELECT idreserva FROM reservas WHERE ID_RES = ?)";
-
-$stmt = $con->prepare($sql);
-if ($stmt == false) {
-  echo $con->error;
-  return;
-}
-$stmt->bind_param("i",$id);
-$ok = $stmt->execute();
-if(!$ok){
-  echo $con -> error;
-  return;
-}
-$stmt->close();
-
-
-$sql= "DELETE FROM reservas WHERE ID_RES = ?";
-
-$stmt = $con->prepare($sql);
-if ($stmt == false) {
-  echo $con->error;
-  return;
-}
-$stmt->bind_param("i",$id);
-$ok = $stmt->execute();
-if(!$ok){
-  echo $con -> error;
-  return;
-}
-$stmt->close();
-
 $sql= "DELETE FROM direccion WHERE ID_DIR = ?";
 
 $stmt = $con->prepare($sql);

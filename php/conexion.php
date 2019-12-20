@@ -3,9 +3,9 @@
 function conectar_con(){
     
     $server = "remotemysql.com";
-	$user = "9pI70erRPy";
-	$pass = "bVw5JpXzO9";
-	$db = "9pI70erRPy";
+	$user = "9iwYLOJV8a";
+	$pass = "upKsma9wUY";
+	$db = "9iwYLOJV8a";
     
     $con=mysqli_connect($server,$user,$pass,$db);
     
