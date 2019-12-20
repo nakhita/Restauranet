@@ -92,7 +92,7 @@ function imprimirCalificarReserva($row_reservas) {
       <div class="col-6 col-md-5 col-lg-3"><label style="padding-top:4px;"><b><i class="fas fa-star"></i> Estrellas:</b></label></div>
       <div class="col-6 col-md-7 col-lg-9"><input id="estrellas" name="estrellas" type="number"></div>
       <div class="col-6 col-md-5 col-lg-3"><label style="padding-top:3px;"><b><i class="fas fa-comment"></i> Comentario:</b></label></div>
-      <div class="col-6 col-md-7 col-lg-9"><textarea style="width:100%;" name="comentario" rows="4"></textarea></div>
+      <div class="col-6 col-md-7 col-lg-9"><textarea maxlength="500" style="width:100%;" name="comentario" rows="4"></textarea></div>
     </div>
     <input type="hidden" name="idreserva" value="<?php echo $idreserva; ?>"  />
     <input type="submit" value="Calificar" class="boton btn">
