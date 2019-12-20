@@ -35,8 +35,6 @@ $id_dir=$row_rest['ID_RES'];
 	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
-	<link href="librerias/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="librerias/themes/krajee-fas/theme.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="principal-background">
@@ -46,21 +44,13 @@ $id_dir=$row_rest['ID_RES'];
       <div class="row contenedor-fondo container">
         <br><br>
         <div class="col-1">
-          <a href="lista_datosHTML.php?volver=true" class="sub-titulitos" value="Ver Mas Restaurantes"><i class="fas fa-arrow-left"></i></a>
+          <a href="lista_datosHTML.php" class="sub-titulitos" value="Ver Mas Restaurantes"><i class="fas fa-arrow-left"></i></a>
         </div>
         <div class="col-8">
         
         <?php
         //IMPRIMO LOS DATOS OBTENIDOS
-          echo "<h3 class='titulitos'>".$row_rest['nombre']."</h3>";
-          
-          $consulta_calificacion = "SELECT RES.ID_RES, AVG(C.estrellas) as 'prom_estrellas' FROM restaurante RES LEFT JOIN reservas R ON RES.ID_RES = R.ID_RES LEFT JOIN calificaciones C ON C.idreserva = R.idreserva WHERE RES.ID_RES = ".$idrestaurant." GROUP BY RES.ID_RES;";
-          $resultado_calificacion = mysqli_query($mysqli, $consulta_calificacion);
-          $row_calificacion = mysqli_fetch_array($resultado_calificacion);
-          
-          echo "<input id='estrellas' name='estrellas' type='number' value='".$row_calificacion['prom_estrellas']."'><br>" ;
-          
-          
+          echo "<h3 class='titulitos'>".$row_rest['nombre']."</h3>"."<br>";
           echo "<b>Email:</b> ".$row_rest['email']."<br>";
           echo "<b>Telefono:</b> ".$row_rest['telefono']."<br>";
           
@@ -74,7 +64,7 @@ $id_dir=$row_rest['ID_RES'];
           echo "<b>Direccion:</b> ".$row_rest['nombreCalle'].",".$row_rest['numero']."<br>";
           echo "<b>Localidad:</b> ".$row_rest['localidad']."<br>";
           echo "<b>Provincia:</b> ".$row_rest['provincia']."<br>"."<br>";
-
+		  
 		  include('calificaciones_MODAL.php');
           
           
@@ -90,6 +80,15 @@ $id_dir=$row_rest['ID_RES'];
           <a href="Formulario_crear_reserva.php?id=<?php echo $idrestaurant; ?>" value="Reservar Ya" class="boton btn">Reservar</a>
           <br>
         </div>
+        <!--<form method="POST" id="form_ver_rest_<?//php echo $idrestaurant; ?>" action="Formulario_crear_reserva.php">
+          <input type="hidden" name="ver" value="<?//php echo $idrestaurant; ?>"  />
+		  
+       </form>
+       <form method="POST" id="form_ver_rest_<?//php echo $idrestaurant; ?>" action="lista_datosHTML.php">
+          <input type="hidden" name="ver" value="<?//php echo $idrestaurant; ?>"  />
+          <br>
+          
+       </form>-->
       </div>
     </div>
     <script href="js/prefixfree.min.js"></script>
@@ -107,22 +106,6 @@ $id_dir=$row_rest['ID_RES'];
     <script src="js/cabecera.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=googleAPILoaded" async defer></script>
     <script src="js/index_buscar_reserva.js"></script>
-    <script src="librerias/js/star-rating.js" type="text/javascript"></script>
-    <script src="librerias/themes/krajee-fas/theme.js"></script>
-    <script src="librerias/js/locales/es.js"></script>
-    
-    <script>
-      $(document).ready(function(){
-        $('#estrellas').rating({
-          theme: 'krajee-fas',
-          language: 'es',
-          readonly: true,
-          showCaptionAsTitle: true,
-          showClear: false,
-          showCaption: false
-        });
-      });
-    </script>
     
 <?php
 	

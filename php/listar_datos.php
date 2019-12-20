@@ -1,14 +1,21 @@
 <?php
 include("conexion_bd.php");
+include("sesion.php");
 //$connect = mysqli_connect("localhost", "root", "", "restauranet");
 if(isset($_POST['buscar'])){
-	
-	$datos=htmlentities($_POST['datos']	);
-	$query = "SELECT R.ID_RES,R.nombre, D.nombreCalle,R.telefono, D.numero, D.localidad, D.provincia FROM restaurante R INNER JOIN direccion D on R.ID_RES=D.ID_DIR
+  $datos=htmlentities($_POST['datos']	);
+} else if(null !== obtener_variable('datos_buscar') && isset($_GET['volver']) && $_GET['volver'] == true) {
+  $datos=obtener_variable('datos_buscar');
+} else {
+  echo '</fieldset>';
+  return;
+}
+
+$query = "SELECT R.ID_RES,R.nombre, D.nombreCalle,R.telefono, D.numero, D.localidad, D.provincia FROM restaurante R INNER JOIN direccion D on R.ID_RES=D.ID_DIR
 	WHERE nombre LIKE '%".$datos."%' OR localidad LIKE '%".$datos."%' OR provincia LIKE '%".$datos."%' ";
 $result = mysqli_query($mysqli/*$connect*/, $query);
 echo '<br><fieldset class="col-12 border p-3"><div class="arrow">
-      <legend class="sub-titulitos w-auto"><a class="col-1" onClick="javascript:window.history.back();" name="Submit" value="atras"><i class="fas fa-arrow-left"></i></a><h1 class="titulitos  col-11" style="text-align: center;"><i class="fas fa-utensils" ></i> Datos de los Restaurantes:</h1></legend></div>'.'<br>';
+      <legend class="sub-titulitos w-auto"><a href="index.php" class="col-1" name="Submit" value="Atras"><i class="fas fa-arrow-left"></i></a><h1 class="titulitos  col-11" style="text-align: center;"><i class="fas fa-utensils" ></i> Datos de los Restaurantes:</h1></legend></div>'.'<br>';
 while($row = mysqli_fetch_assoc($result))
 {
   ?>
@@ -36,8 +43,7 @@ while($row = mysqli_fetch_assoc($result))
       <?php
        echo '<hr width="50%">'.'<br>';
 }
-}
-
+guardar_variable('datos_buscar', $datos);
 echo '</fieldset>';
 
 ?>

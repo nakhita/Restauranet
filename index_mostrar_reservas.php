@@ -103,7 +103,45 @@
                }*/
              });
             });
+            
+            $('.boton-cambiar-estado-reserva-aceptado').click(function(e){
+              var idreserva = $(e.target).data('idreserva');
+              $.ajax({
+                type:'GET',
+                url: 'php/funciones/reserva/actualizar_reserva.php?idreserva='+idreserva+'&estado=1',
+                success:function(data){
+                  $('#boton-aceptar-'+idreserva).hide();
+                  $('#boton-atender-'+idreserva).show();
+                  $('#estado-reserva-'+idreserva).text('Aceptado');
+                }
+              });
+            });
+
+            $('.boton-cambiar-estado-reserva-atendido').click(function(e){
+              var idreserva = $(e.target).data('idreserva');
+              $.ajax({
+                type:'GET',
+                url: 'php/funciones/reserva/actualizar_reserva.php?idreserva='+idreserva+'&estado=2',
+                success:function(data){
+                  $('#reserva-contenedor-'+idreserva).hide();
+                }
+              });
+            });
+            
+            $('.boton-cambiar-estado-reserva-no-asistio').click(function(e){
+              var idreserva = $(e.target).data('idreserva');
+              $.ajax({
+                type:'GET',
+                url: 'php/funciones/reserva/actualizar_reserva.php?idreserva='+idreserva+'&estado=3',
+                success:function(data){
+                  $('#reserva-contenedor-'+idreserva).hide();
+                }
+              });
+            });
+            
           });
+            
+            
           </script>
   </body>
 

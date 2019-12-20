@@ -2,86 +2,42 @@
 	//session_start();
 	//conexion con base de datos
 	include_once("php/conexion_bd.php");
-
-	$numeroReserva=0;
+    include_once("php/funciones/ui/reserva_ui.php");
+    $id=$_GET['id'];
 	
-	
-	
-	/*echo "<h1>Lista de Reservas para hoy</h1>";
-	
-	$result_reservas = "SELECT * FROM reservas WHERE DAY(fecha) = DAY(CURDATE()) AND MONTH(fecha) = MONTH(CURDATE()) AND YEAR(fecha) = YEAR(CURDATE())";
-	$resultado_reservas = mysqli_query($mysqli, $result_reservas);
-	while($row_reservas = mysqli_fetch_array($resultado_reservas)){
-		echo "idcliente: ".$row_reservas['idcliente']."<br>";
-		echo "fecha: ".date('d/m/Y', strtotime($row_horarios['fecha']))."<hr>";
-	}*/
-	
-	//echo "<h1>Lista de Reservas</h1>";
 	echo '<br><br>';
 	
-	
-
-      if(isset($_GET['fechareservas'])){
-
-          $fecha = date("Y-m-d", strtotime($_GET["fechareservas"]));
-
-          $result_reservas = "SELECT U.nombres, R.fecha, R.hora, R.cantidad_personas FROM usuario U RIGHT JOIN reservas R ON R.idcliente = U.ID_US
-                          WHERE R.ID_RES=$'$id' AND fecha >= '$fecha' AND MONTH(fecha) = MONTH('$fecha') AND YEAR(fecha) = YEAR('$fecha') ORDER BY fecha ASC";
-
-          $resultado_reservas = mysqli_query($mysqli, $result_reservas);
-
-          while($row_reservas = mysqli_fetch_array($resultado_reservas)){
-              echo '<b>RESERVA Nro.'.$numeroReserva.'</b><br><br>';
-              $numeroReserva++;
-              echo "<b>Nombre:</b> ".$row_reservas['nombres']."<br>";
-              echo "<b>Fecha: </b>".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br>';
-              echo "<b>Hora:</b> ".$row_reservas['hora']."<br>";
-              echo "<b>Cantidad de personas:</b> ".$row_reservas['cantidad_personas'].'<br><br>';
-              /*.'<hr>'*/;
-              echo '<hr width="50%">'.'<br>';
-
-          }	
-      }else{	
-          if($mostrarflag){
-
-              $result_reservas = "SELECT U.nombres, R.fecha, R.hora, R.cantidad_personas FROM usuario U RIGHT JOIN reservas R ON R.idcliente = U.ID_US
-                          WHERE R.ID_RES=$numeroReserva AND fecha = CURDATE() ORDER BY hora ASC";
-              $resultado_reservas = mysqli_query($mysqli, $result_reservas);
-
-              while($row_reservas = mysqli_fetch_array($resultado_reservas)){
-
-                  echo '<b>RESERVA Nro.'.$numeroReserva.'</b><br><br>';
-
-                  $numeroReserva++;
-                  echo "<b>Nombre: </b>".$row_reservas['nombres']."<br>";
-                  echo "<b>Fecha: </b>".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br>';
-                  echo "<b>Hora:</b> ".$row_reservas['hora']."<br>";
-                  echo "<b>Cantidad de personas: </b>".$row_reservas['cantidad_personas']."<br><br>";
-                  /*."<hr>"*/;
-                  echo '<hr width="50%">'.'<br>';
-
-                  }
-
-              }else{
-
-                  $result_reservas = "SELECT U.nombres, R.fecha, R.hora, R.cantidad_personas FROM usuario U RIGHT JOIN reservas R ON R.idcliente = U.ID_US
-                                      WHERE R.ID_RES=$numeroReserva AND fecha>=CURDATE() ORDER BY fecha ASC";
-                  $resultado_reservas = mysqli_query($mysqli, $result_reservas);
-
-                  while($row_reservas = mysqli_fetch_array($resultado_reservas)){
-
-                      echo '<b>RESERVA Nro.'.$numeroReserva.'</b><br><br>';
-
-                      $numeroReserva++;
-                      echo "<b>Nombre: </b>".$row_reservas['nombres']."<br>";
-                      echo "<b>Fecha: </b>".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br>';
-                      echo "<b>Hora: </b>".$row_reservas['hora']."<br>";
-                      echo "<b>Cantidad de personas: </b>".$row_reservas['cantidad_personas']."<br><br>";
-                      /*."<hr>"*/;
-                      echo '<hr width="50%">'.'<br>';
-
-                  }	
-              }
-      }
+    $cantidadReservas = 0;
+    if(isset($_GET['fechareservas'])){
+        $fecha = date("Y-m-d", strtotime($_GET["fechareservas"]));
+        $result_reservas = "SELECT R.idreserva, U.nombres, R.fecha, R.hora, R.cantidad_personas, R.estado, ER.nombre as nombre_estado FROM usuario U RIGHT JOIN reservas R ON R.idcliente = U.ID_US 
+                        LEFT JOIN estado_reserva ER ON R.estado = ER.idestado WHERE R.ID_RES=$id AND DAY(fecha) = DAY('$fecha') AND MONTH(fecha) = MONTH('$fecha') AND YEAR(fecha) = YEAR('$fecha') AND R.estado IN (0,1) ORDER BY fecha ASC";
+        $resultado_reservas = mysqli_query($mysqli, $result_reservas);
+        while($row_reservas = mysqli_fetch_array($resultado_reservas)){
+            imprimirReserva($row_reservas);
+            $cantidadReservas++;
+        }
+    }else{	
+        if($mostrarflag){
+            $result_reservas = "SELECT R.idreserva, U.nombres, R.fecha, R.hora, R.cantidad_personas, R.estado, ER.nombre as nombre_estado FROM usuario U RIGHT JOIN reservas R ON R.idcliente = U.ID_US
+                        LEFT JOIN estado_reserva ER ON R.estado = ER.idestado WHERE R.ID_RES=$id AND DAY(fecha) = DAY(CURDATE()) AND MONTH(fecha) = MONTH(CURDATE()) AND YEAR(fecha) = YEAR(CURDATE()) AND R.estado IN (0,1) ORDER BY hora ASC";
+            $resultado_reservas = mysqli_query($mysqli, $result_reservas);
+            while($row_reservas = mysqli_fetch_array($resultado_reservas)){
+                imprimirReserva($row_reservas);
+                $cantidadReservas++;
+            }
+        } else{
+            $result_reservas = "SELECT R.idreserva, U.nombres, R.fecha, R.hora, R.cantidad_personas, R.estado, ER.nombre as nombre_estado FROM usuario U RIGHT JOIN reservas R ON R.idcliente = U.ID_US
+                                LEFT JOIN estado_reserva ER ON R.estado = ER.idestado WHERE R.ID_RES=$id AND fecha>=CURDATE() AND R.estado IN (0,1) ORDER BY fecha ASC";
+            $resultado_reservas = mysqli_query($mysqli, $result_reservas);
+            while($row_reservas = mysqli_fetch_array($resultado_reservas)){
+                imprimirReserva($row_reservas);
+                $cantidadReservas++;
+            }	
+        }
+    }
+    if($cantidadReservas == 0) {
+      echo "No se encontraron reservas.";
+    }
   
 ?>
