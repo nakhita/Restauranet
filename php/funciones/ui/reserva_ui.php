@@ -1,13 +1,13 @@
 <?php
 
 function imprimirReserva($row_reservas) {
-  echo "<div id='reserva-contenedor-".$row_reservas['idreserva']."' class='reserva-contenedor'>";
+  echo "<div class='reserva-contenedor-".$row_reservas['idreserva']."' class='reserva-contenedor'>";
   echo '<b>RESERVA Nro.'.$row_reservas['idreserva'].'</b><br><br>';
   echo "<b>Nombre: </b>".$row_reservas['nombres']."<br>";
   echo "<b>Fecha: </b>".date('d/m/Y', strtotime($row_reservas['fecha'])).'<br>';
   echo "<b>Hora: </b>".$row_reservas['hora']."<br>";
   echo "<b>Cantidad de personas: </b>".$row_reservas['cantidad_personas']."<br>";
-  echo "<b>Estado: </b><span id='estado-reserva-".$row_reservas['idreserva']."'>".$row_reservas['nombre_estado']."</span><br><br>";
+  echo "<b>Estado: </b><span class='estado-reserva-".$row_reservas['idreserva']."'>".$row_reservas['nombre_estado']."</span><br><br>";
   
   if($row_reservas['estado'] == 0) {
     $mostrarBotonAceptar = 'block';
@@ -21,8 +21,8 @@ function imprimirReserva($row_reservas) {
     $mostrarBotonAtender = 'none';
   }
   
-  echo "<div id='boton-aceptar-".$row_reservas['idreserva']."' style='display:".$mostrarBotonAceptar."'>Cambiar estado a: <button style='width:auto; !important' class='btn btn-md boton boton-cambiar-estado-reserva-aceptado' data-idreserva=".$row_reservas['idreserva'].">Aceptado</button></div>";
-  echo "<div id='boton-atender-".$row_reservas['idreserva']."' style='display:".$mostrarBotonAtender."'>Cambiar estado a: <button style='width:auto; !important' class='btn btn-md boton boton-cambiar-estado-reserva-atendido' data-idreserva=".$row_reservas['idreserva'].">Atendido</button> | <button style='width:auto; !important' class='btn btn-md boton boton-cambiar-estado-reserva-no-asistio' data-idreserva=".$row_reservas['idreserva'].">No asistio</button></div>";
+  echo "<div class='boton-aceptar-".$row_reservas['idreserva']."' style='display:".$mostrarBotonAceptar."'>Cambiar estado a: <button style='width:auto; !important' class='btn btn-md boton boton-cambiar-estado-reserva-aceptado' data-idreserva=".$row_reservas['idreserva'].">Aceptado</button></div>";
+  echo "<div class='boton-atender-".$row_reservas['idreserva']."' style='display:".$mostrarBotonAtender."'>Cambiar estado a: <button style='width:auto; !important' class='btn btn-md boton boton-cambiar-estado-reserva-atendido' data-idreserva=".$row_reservas['idreserva'].">Atendido</button> | <button style='width:auto; !important' class='btn btn-md boton boton-cambiar-estado-reserva-no-asistio' data-idreserva=".$row_reservas['idreserva'].">No asistio</button></div>";
   echo '<hr width="50%">'.'<br>';
   echo "</div>";
 }

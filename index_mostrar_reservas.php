@@ -110,9 +110,9 @@
                 type:'GET',
                 url: 'php/funciones/reserva/actualizar_reserva.php?idreserva='+idreserva+'&estado=1',
                 success:function(data){
-                  $('#boton-aceptar-'+idreserva).hide();
-                  $('#boton-atender-'+idreserva).show();
-                  $('#estado-reserva-'+idreserva).text('Aceptado');
+                  $('.boton-aceptar-'+idreserva).hide();
+                  $('.boton-atender-'+idreserva).show();
+                  $('.estado-reserva-'+idreserva).text('Aceptado');
                 }
               });
             });
@@ -123,7 +123,7 @@
                 type:'GET',
                 url: 'php/funciones/reserva/actualizar_reserva.php?idreserva='+idreserva+'&estado=2',
                 success:function(data){
-                  $('#reserva-contenedor-'+idreserva).hide();
+                  $('.reserva-contenedor-'+idreserva).hide();
                 }
               });
             });
@@ -134,7 +134,7 @@
                 type:'GET',
                 url: 'php/funciones/reserva/actualizar_reserva.php?idreserva='+idreserva+'&estado=3',
                 success:function(data){
-                  $('#reserva-contenedor-'+idreserva).hide();
+                  $('.reserva-contenedor-'+idreserva).hide();
                 }
               });
             });

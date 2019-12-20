@@ -23,7 +23,7 @@
         unset($_SESSION['msg']);
     }
     
-	$result_reservas = "SELECT R.*, REST.nombre as 'nombre_restaurante', DIR.*, CA.estrellas, CA.comentario FROM reservas R LEFT JOIN restaurante REST ON R.ID_RES = REST.ID_RES LEFT JOIN direccion DIR ON REST.ID_RES = DIR.ID_DIR LEFT JOIN calificaciones CA ON CA.idreserva = R.idreserva WHERE idcliente=$idcliente AND R.estado = 4 ORDER BY fecha, hora;";
+	$result_reservas = "SELECT R.*, REST.nombre as 'nombre_restaurante', DIR.*, CA.estrellas, CA.comentario FROM reservas R LEFT JOIN restaurante REST ON R.ID_RES = REST.ID_RES LEFT JOIN direccion DIR ON REST.ID_RES = DIR.ID_DIR LEFT JOIN calificaciones CA ON CA.idreserva = R.idreserva WHERE idcliente=$idcliente AND R.estado = 4 ORDER BY fecha DESC, hora DESC";
 	$resultado_reservas = mysqli_query($mysqli, $result_reservas);
 	while($row_reservas = mysqli_fetch_array($resultado_reservas)){
       imprimirCalificacion($row_reservas);
